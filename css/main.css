@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary: #1b98fe;
+    --primary-light: #84dbff;
+    --secondary: #e5fdfe;
+    --white: #ffffff;
+    --max-width: 1200px;
+
+    --apex-text: #fff;
+    --apex-dark-text: #c0c0c0;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: 0;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+}

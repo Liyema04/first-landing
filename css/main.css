@@ -1,28 +1,202 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --primary: #1b98fe;
-    --primary-light: #84dbff;
-    --secondary: #e5fdfe;
-    --white: #ffffff;
-    --max-width: 1200px;
+  --primary-color: #1b98fe;
+  --primary-light: #84dbff;
+  --secondary: #e5fdfe;
+  --white: #ffffff;
+  --max-width: 1200px;
 
-    --apex-text: #fff;
-    --apex-dark-text: #c0c0c0;
+  --apex-text: #fff;
+  --apex-dark-text: #707070;
+  
+  /*Transitions*/
+  --tran-01: all 0.1s ease;
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease; 
 }
 
 *{
   padding: 0;
   margin: 0;
-  box-sizing: 0;
+  box-sizing: border-box; /* 0 or border-box */
 }
 
 a {
   text-decoration: none;
-  transition: 0.3s;
+  transition: var(--tran-03);
 }
 
+/* Mobile first approach */
 body {
   font-family: "Montserrat", sans-serif;
   min-height: 100vh;
+  background-image: url("/public/images/assets/BASE-2.png");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat !important;
+}
+
+.container {
+  max-width: var(--max-width) !important;
+  margin-inline: auto; 
+}
+
+nav {
+  position: fixed;
+  isolation: isolate;
+  width: 100%;
+  background-color: var(--primary-color);
+  z-index: 9;
+}
+
+.nav-bar {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+.nav-header {
+  padding: 1rem;
+  /* width: 100%; not needed*/ 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+}
+
+.nav-logo a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.nav-logo a span {
+  color: var(--primary-light);
+}
+
+.nav-logo img.apex-logo {
+  display: none;
+}
+
+.nav-menu-btn {
+  font-size: 1.5rem;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.nav-links {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  list-style: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  gap: 2rem;
+  background-color: var(--primary-color);
+  transition: var(--tran-05);
+  z-index: -1;
+  transform: translateY(-100%); 
+}
+
+.nav-links.open {
+  transform: translateY(0);
+}
+
+.nav-links a {
+  white-space: nowrap;
+  color: var(--white);
+  transition: var(--tran-03);
+  font-weight: 400;
+}
+
+.nav-links a:hover {
+  color: var(--apex-dark-text);
+  transition: var(--tran-02);
+}
+
+/* Desktop */
+@media (width > 768px) {
+  nav {
+    position: static;
+    background: none !important;
+    padding-top: 1rem;
+  }
+
+  .nav-bar {
+    padding:  2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-height: 26px;
+    border-radius: 2rem;
+    background-color: rgba(229, 253, 254, 0.315);
+  }
+
+  .nav-header {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .nav-logo .cont-1 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nav-logo img.apex-logo {
+    width: 50px;
+    height: 50px;
+    display: flex
+  }
+
+  .nav-logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    white-space: nowrap;
+  }
+
+  .nav-logo a span {
+    font-weight: 700;
+    color: var(--primary-light);
+  }
+
+  .nav-menu-btn {
+    display: none;
+  }
+
+  .nav-links {
+    position: static;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: transparent;
+    transform: none;
+    z-index: unset;
+  }
+
+  .nav-links a {
+    border-radius: 0.5rem;
+    width: 6px;
+    height: 12px;
+    padding: 8px;
+    white-space: nowrap;
+    color: var(--white);
+    transition: var(--tran-03);
+    font-weight: 600;
+  }
+
+  .nav-links a:hover {
+    background: var(--secondary);
+    color: var(--primary-color);
+    transition: var(--tran-03);
+  }
 }

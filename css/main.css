@@ -9,7 +9,10 @@
 
   --apex-text: #fff;
   --apex-dark-text: #707070;
-  
+
+  /* APex gradients */
+  --gradient-nav: linear-gradient(90deg, rgba(229, 253, 254, 0.8)  0%,rgba(132, 219, 255, 1) 38%, rgba(27, 152, 254, 1) 100% ); /*  */
+
   /*Transitions*/
   --tran-01: all 0.1s ease;
   --tran-02: all 0.2s ease;
@@ -37,6 +40,7 @@ body {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat !important;
+  overflow-x: hidden !important; /* prevents horizontal scroll */
 }
 
 .container {
@@ -45,10 +49,10 @@ body {
 }
 
 nav {
-  position: fixed;
+  position: absolute;
   isolation: isolate;
   width: 100%;
-  background-color: var(--primary-color);
+  background-color: var(--white);
   z-index: 9;
 }
 
@@ -64,13 +68,13 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--primary-color);
+  background-color: var(--white);
 }
 
 .nav-logo a {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--apex-dark-text);
 }
 
 .nav-logo a span {
@@ -83,7 +87,8 @@ nav {
 
 .nav-menu-btn {
   font-size: 1.5rem;
-  color: var(--white);
+  -webkit-text-stroke-width: 1px;
+  color: var(--apex-dark-text);
   cursor: pointer;
 }
 
@@ -99,7 +104,7 @@ nav {
   justify-content: center;
   flex-direction: column; 
   gap: 2rem;
-  background-color: var(--primary-color);
+  background-color: var(--white);
   transition: var(--tran-05);
   z-index: -1;
   transform: translateY(-100%); 
@@ -110,15 +115,38 @@ nav {
 }
 
 .nav-links a {
+  padding-right: 4px;
   white-space: nowrap;
-  color: var(--white);
+  color: var(--apex-dark-text);
   transition: var(--tran-03);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .nav-links a:hover {
-  color: var(--apex-dark-text);
-  transition: var(--tran-02);
+  padding-right: 4px;
+  border-radius: none;
+  border-bottom: 2px solid var(--primary-light);
+  color: var(--primary-light);
+  transition: var(--tran-03);
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768) {
+  /* Inherit mobile styles by default */
+
+  /* Tablet specific overrides */
+  .nav-bar {
+    width: 100%;
+  }
+
+  .nav-header {
+    padding: 1rem 2rem; /* Slightly more padding for tablets */
+  }
+
+  .nav-logo img.resi-logo {
+    width: 40px; /* Slightly larger than mobile */
+    height: 40px;
+  }
 }
 
 /* Desktop */
@@ -130,43 +158,64 @@ nav {
   }
 
   .nav-bar {
-    padding:  2rem 2rem;
+    width: 90%;
+    margin-inline: auto;
+    border-radius: 2rem;
+    background: var(--gradient-nav); /* rgba(229, 253, 254, 0.315) */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
-    max-height: 26px;
-    border-radius: 2rem;
-    background-color: rgba(229, 253, 254, 0.315);
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding:  1.5rem 1.5rem;
+    transition: var(--tran-04);
   }
 
   .nav-header {
     padding: 0;
     background-color: transparent;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 30%; /* Limit logo section */
   }
 
-  .nav-logo .cont-1 {
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 1; /* ✅ allow shrinking */
+    min-width: 0;
+  }
+
+  .cont-1 {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    min-width: 0;
   }
 
   .nav-logo img.apex-logo {
-    width: 50px;
-    height: 50px;
-    display: flex
+    width: clamp(36px, 4vw, 50px); /* ✅ scale down gracefully */
+    height: auto;
+    display: block;
+    margin: 0;
+    flex-shrink: 1;
+
   }
 
   .nav-logo a {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 1.8vw, 1.5rem); /* ✅ responsive text size */
     font-weight: 700;
     color: var(--white);
     white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 1;
   }
 
   .nav-logo a span {
     font-weight: 700;
-    color: var(--primary-light);
+    color: var(--primary-color);
   }
 
   .nav-menu-btn {
@@ -175,28 +224,86 @@ nav {
 
   .nav-links {
     position: static;
-    padding: 0;
-    flex-direction: row;
-    justify-content: flex-end;
-    background-color: transparent;
     transform: none;
-    z-index: unset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 1; 
+    flex-wrap: nowrap;
+    background: transparent;
+    width: auto;
+    padding: 12px;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .nav-links li {
+    list-style: none;
   }
 
   .nav-links a {
-    border-radius: 0.5rem;
-    width: 6px;
-    height: 12px;
-    padding: 8px;
-    white-space: nowrap;
     color: var(--white);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 6px 6px;
+    white-space: none;
+    border-radius: 0.5rem;
     transition: var(--tran-03);
-    font-weight: 600;
+    font-size: clamp(1rem, 1vw, 1rem);
+    flex-shrink: 1;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2); /* For better contrast */
   }
 
   .nav-links a:hover {
+    border-bottom: none;
     background: var(--secondary);
     color: var(--primary-color);
-    transition: var(--tran-03);
+    transition: var(--tran-02);
+    text-shadow: none;
+  }
+}
+
+/* Then add the responsive shrinking behavior */
+@media (min-width: 1200px) {
+  .nav-bar {
+    width: 85%;
+    padding: 1.5rem 4rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .nav-bar {
+    width: 90%;
+    padding: 1rem 3rem;
+    gap: 1.25rem;
+  }
+
+  .nav-links {
+    gap: 1.25rem;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 769px) {
+  .nav-bar {
+    width: 92%;
+    padding: 0.75rem 2rem;
+    gap: 0.85rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 6px;
   }
 }

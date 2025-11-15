@@ -130,6 +130,58 @@ nav {
   transition: var(--tran-03);
 }
 
+/* Main Content  */
+.hero-cont {
+  width: 100%;
+  height: 100vh; /*Full viewport height */
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image {
+  height: 100vh; /*Full viewport height */
+  width: 100%;
+  /*background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/front/images/preview.jpeg"); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  color: var(--apex-text);
+  padding: 2rem;
+  max-width: var(--max-width);
+  z-index: 1;
+}
+
+.hero-text-cont h1 {
+  margin: 0; /* removes default margin allowing gap to control spacing */
+  line-height: 1.02;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--apex-text);
+}
+
+.hero-text-cont hr.line-sep {
+  margin: 0; /* gap handles spacing */
+  width: clamp(200px, 50%, 800px);
+  border: 6px solid var(--primary-color);
+  border-radius: 5px;
+}
+
+.hero-text-cont p {
+  margin: 0; /* keep spacing consistent via gap */
+  font-size: clamp(1.25rem, 1.5vw, 1rem);
+  font-weight: 500;
+}
+
 /* Tablet */
 @media (min-width: 481px) and (max-width: 768) {
   /* Inherit mobile styles by default */
@@ -137,6 +189,20 @@ nav {
   /* Tablet specific overrides */
   .nav-bar {
     width: 100%;
+  }
+
+  .hero-image {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .hero-cont {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-text-cont h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
   }
 
   .nav-header {
@@ -155,6 +221,25 @@ nav {
     position: static;
     background: none !important;
     padding-top: 1rem;
+  }
+
+  .hero-cont {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    overflow-x: hidden !important;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image {
+    width: 100vw;
+  }
+
+  .hero-text-cont h1 {
+    font-size: 900;
+    font-weight: 700;
   }
 
   .nav-bar {

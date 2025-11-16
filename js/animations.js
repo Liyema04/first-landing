@@ -21,3 +21,18 @@ navLinks.addEventListener("click", (e) => {
     // Changes menu-btn icon in close state
     menuBtnIcon.setAttribute("class", "ri-menu-line"); 
 })
+ 
+// Text On-Page load animation 
+document.addEventListener("DOMContentLoaded", function() {
+    const containers = document.querySelectorAll('.text-anim');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    containers.forEach(container => observer.observe(container));
+}); 

@@ -36,11 +36,11 @@ a {
 body {
   font-family: "Montserrat", sans-serif;
   min-height: 100vh;
-  background-image: url("/public/images/assets/BASE-2.png");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat !important;
   overflow-x: hidden !important; /* prevents horizontal scroll */
+  caret-color: transparent !important;
 }
 
 .container {
@@ -141,7 +141,7 @@ nav {
 .hero-image {
   height: 100vh; /*Full viewport height */
   width: 100%;
-  /*background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/front/images/preview.jpeg"); */
+  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/public/images/assets/BASE-2.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -180,6 +180,7 @@ nav {
   margin: 0; /* keep spacing consistent via gap */
   font-size: clamp(1.25rem, 1.5vw, 1rem);
   font-weight: 500;
+  z-index: 1;
 }
 
 /* Call to action buttons (Make reusable in future with SCSS/Bootstrap) */
@@ -415,8 +416,17 @@ nav {
 
 /* Desktop */
 @media (width > 768px) {
+  body.hero-wrapper {
+    background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/public/images/assets/BASE-2.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* keeps image fixed while scrolling */
+    min-height: 100vh;
+  }
+
   nav {
-    position: static;
+    position: static; /* if (fixed) Add blur or opacity decrease on-scroll. */
     background: none !important;
     padding-top: 1rem;
   }
@@ -433,6 +443,16 @@ nav {
 
   .hero-image {
     width: 100vw;
+    background-image: none !important;
+  }
+
+  .hero-text-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: left;
+    color: var(--apex-text);
+    min-width: 600px;
   }
 
   .hero-text-cont h1 {

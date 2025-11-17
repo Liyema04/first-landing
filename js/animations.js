@@ -28,11 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
+                entry.target.classList.add('visible'); // if intersecting add .visible class
+                observer.unobserve(entry.target); // Not intersecting then stops observing .visible class or use:
+            }/*else{
+                // Not intersecting then remove .visible class
+                entry.target.classList.remove('visible');
+            }*/
         });
     }, { threshold: 0.3 });
 
-    containers.forEach(container => observer.observe(container));
+    containers.forEach(container => observer.observe(container)); // Observe each container seperately
 }); 

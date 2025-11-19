@@ -131,6 +131,7 @@ nav {
 }
 
 /* Main Content  */
+/* ----> Hero Section <---- */
 .hero-cont {
   width: 100%;
   height: 100vh; /*Full viewport height */
@@ -352,6 +353,144 @@ nav {
   opacity: 1;
 }
 
+/* ----> Services Section <---- */
+.service-cont {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: none !important;
+  padding: 2rem 0;
+}
+
+.service-bg {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.centered-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.service-text-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: center;
+  color: var(--apex-dark-text);
+  padding: 2rem;
+  max-width: var(--max-width);
+  z-index: 1;
+}
+
+.service-text-cont h1.headline {
+  margin: 0;
+  line-height: 1.02;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--apex-dark-text);
+}
+
+.service-text-cont p.describe {
+  margin: 0;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 500;
+}
+
+/* Mobile: Single Column */
+.service-grid-cont {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+/* Service Cards */
+.service-item {
+  position: relative;
+  min-height: 280px;
+  padding: 2rem;
+  background-color: #84dbff;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+}
+
+.service-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
+  z-index: 1;
+}
+
+.service-item .image-wrapper {
+  position: relative;
+  z-index: 2;
+  color: inherit;
+}
+
+.text-overlay {
+  color: var(--apex-text);
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.text-overlay h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.text-overlay p {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Background images for each card */
+.service-item.img-1 {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/pexels-divinetechygirl-1181317.jpg);
+}
+
+.service-item.img-2 {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/Cloud_Platforms_IoT.png);
+}
+
+.service-item.img-3 {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/photo-1558494949-ef010cbdcc31.jpeg);
+}
+
+.service-item.img-4 {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/C1-Cybersecurity-Solution-Child-Hero-Image.jpg);
+}
+
+.service-item.img-5 {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/pexels-field-engineer-147254-442154.jpg);
+}
+
+.service-item.img-6 {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/jeshoots-com-sMKUYIasyDM-unsplash.jpg);
+}
+
 /* Text Animations */
 .text-anim {
   opacity: 0;
@@ -390,6 +529,15 @@ nav {
     width: 100%;
   }
 
+  .nav-header {
+    padding: 1rem 2rem; /* Slightly more padding for tablets */
+  }
+
+  .nav-logo img.resi-logo {
+    width: 40px; /* Slightly larger than mobile */
+    height: 40px;
+  }
+
   .hero-image {
     height: 100vh;
     width: 100%;
@@ -403,16 +551,40 @@ nav {
   .hero-text-cont h1 {
     font-size: clamp(2rem, 4vw, 3rem);
   }
+    
+}
 
-  .nav-header {
-    padding: 1rem 2rem; /* Slightly more padding for tablets */
+/* Tablet: 2 Columns */
+@media (min-width: 600px) {
+  .service-grid-cont {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    gap: 1.5rem;
   }
-
-  .nav-logo img.resi-logo {
-    width: 40px; /* Slightly larger than mobile */
-    height: 40px;
+  
+  /* Make the last item span 2 columns if odd number */
+  .service-item:last-child:nth-child(odd) {
+    grid-column: span 2;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
   }
 }
+
+/* Desktop: 3 Columns for larger screens */
+@media (min-width: 900px) {
+  .service-grid-cont {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    gap: 2rem;
+  }
+  
+  .service-item:last-child:nth-child(odd) {
+    grid-column: span 1;
+    max-width: none;
+  }
+}
+
 
 /* Desktop */
 @media (width > 768px) {
@@ -429,35 +601,6 @@ nav {
     position: static; /* if (fixed) Add blur or opacity decrease on-scroll. */
     background: none !important;
     padding-top: 1rem;
-  }
-
-  .hero-cont {
-    padding: 0;
-    margin: 0;
-    width: 100vw;
-    overflow-x: hidden !important;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-image {
-    width: 100vw;
-    background-image: none !important;
-  }
-
-  .hero-text-cont {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    text-align: left;
-    color: var(--apex-text);
-    min-width: 600px;
-  }
-
-  .hero-text-cont h1 {
-    font-size: 900;
-    font-weight: 700;
   }
 
   .nav-bar {
@@ -566,6 +709,94 @@ nav {
     color: var(--primary-color);
     transition: var(--tran-02);
     text-shadow: none;
+  }
+
+  /* ----> Hero Sect <---- */
+  .hero-cont {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    overflow-x: hidden !important;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image {
+    width: 100vw;
+    background-image: none !important;
+  }
+
+  .hero-text-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: left;
+    color: var(--apex-text);
+    min-width: 600px;
+  }
+
+  .hero-text-cont h1 {
+    margin: 0; /* removes default margin allowing gap to control spacing */
+    line-height: 1.02;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--apex-text);
+  }
+
+  .hero-text-cont p {
+    margin: 0; /* keep spacing consistent via gap */
+    font-size: clamp(1.25rem, 1.5vw, 1rem);
+    font-weight: 500;
+    z-index: 1;
+  }
+
+  /* ----> Services <---- */
+  .service-cont {
+    padding: 4rem 0;
+    overflow-x: hidden !important;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(27, 152, 254, 0.40);
+  }
+
+  .service-text-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: center;
+    color: var(--apex-text);
+    min-width: 600px;
+  }
+
+  .service-text-cont h1.headline {
+    margin: 0; /* removes default margin allowing gap to control spacing */
+    line-height: 1.02;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--apex-text);
+  }
+
+  .service-text-cont p.describe {
+    margin: 0; /* keep spacing consistent via gap */
+    font-size: clamp(1.25rem, 1.5vw, 1rem);
+    font-weight: 500;
+    z-index: 1;
+  }
+
+  /* Service Grid Container */
+
+  /* Override the fixed grid to use flexible columns */
+  .service-grid-cont {
+    grid-template-columns: repeat(3, minmax(250px, 1fr)) !important;
+    max-width: 1200px;
+    gap: 2rem !important;
+  }   
+  /* Service Cards in Grid */
+  .service-item {
+    min-height: 320px;
+    padding: 2rem;
   }
 }
 

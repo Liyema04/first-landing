@@ -581,6 +581,46 @@ nav {
   transition-delay: 0.7s;
 }
 
+/* Card Animations */
+
+/* Mobile */
+.service-grid-cont .service-anim {
+  translate: -100%;
+  opacity: 0;
+  transition: 800ms ease;
+}
+
+.service-grid-cont .service-anim.visible  {
+  translate: 0;
+  opacity: 1;
+  transition: 800ms;
+}
+
+/* Stagger the animations */
+.service-anim:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.service-anim:nth-child(2) {
+  transition-delay: 0.3s;
+}
+
+.service-anim:nth-child(3) {
+  transition-delay: 0.5s;
+}
+
+.service-anim:nth-child(4) {
+  transition-delay: 0.7s;
+}
+
+.service-anim:nth-child(5) {
+  transition-delay: 0.9s;
+}
+
+.service-anim:nth-child(6) {
+  transition-delay: 0.11s;
+}
+
 /* Tablet */
 @media (min-width: 481px) and (max-width: 768) {
   /* Inherit mobile styles by default */
@@ -858,7 +898,47 @@ nav {
   .service-item {
     min-height: 320px;
     padding: 2rem;
+    transition: transform 0.4s ease-in-out;
   }
+
+  .service-item:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Services Animation */
+  .centered-holder {
+    translate: -100%;
+    opacity: 0;  
+    transition: 800ms ease;
+  }
+
+  .centered-holder.visible {
+    translate: 0;
+    opacity: 1;
+  }
+
+  /* Remove individual card animations on desktop/tablet */
+  .service-grid-cont .service-anim {
+    translate: 0;
+    opacity: 1;
+    transition: none;
+  }
+
+  .service-grid-cont .service-anim.visible {
+    translate: 0;
+    opacity: 1;
+  }
+
+  /* Remove stagger delays */
+  .service-anim:nth-child(1),
+  .service-anim:nth-child(2),
+  .service-anim:nth-child(3),
+  .service-anim:nth-child(4),
+  .service-anim:nth-child(5),
+  .service-anim:nth-child(6) {
+    transition-delay: 0;
+  }
+
 }
 
 /* Then add the responsive shrinking behavior */

@@ -97,3 +97,70 @@ window.addEventListener("resize", () => {
     resizeTimeout = setTimeout(setupAnimations, 150);
     console.log(resizeTimeout);
 });
+
+// Progressive scroll animation for local-headline
+const localHeadline = document.querySelector('.local-headline');
+const headlineItems = document.querySelectorAll('.local-headline .hl');
+
+if (localHeadline && headlineItems.length > 0) {
+
+    // Creating progress line element
+    const progressLine = document.createElement('div');
+    progressLine.classList.add('progress-line');
+    localHeadline.appendChild(progressLine);
+
+    // Detect mobile vs desktop
+    const isMobile = () => window.innerWidth <= 768;
+
+    // Scroll handler with throttling for performance
+    let ticking = false;
+
+    function updateProgress() {
+        const section = document.getElementById('localCont');
+        if (!section) return;
+        
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const scrollPos = window.scrollY + window.innerHeight / 2;
+
+        // Calculate progress through the section (0 - 1)
+        const progress = Math.max(0, Math.min(1,
+            (scrollPos - sectionTop) / (sectionHeight * 0.8)
+        ));
+
+        // Update progress line (width for desktop, height for mobile)
+        if (isMobile()) {
+            const maxHeight = localHeadline.offsetHeight;
+            progressLine.style.height = `${progress * maxHeight}px`;
+            progressLine.style.width = '4px';
+        } else {
+            const maxWidth = localHeadline.offsetWidth;
+            progressLine.style.width = `${progress * maxWidth}px`;
+            progressLine.style.height = '4px';
+        }
+
+        // Activate items based on progress
+        const itemThreshold = 1 / headlineItems.length;
+        headlineItems.forEach((items, index) => {
+            const itemProgress = (index + 1) * itemThreshold;
+            if (progress >= itemProgress) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateProgress);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', updateProgress);
+    updateProgress(); // Initiate call
+}

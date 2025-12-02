@@ -141,7 +141,7 @@ if (localHeadline && headlineItems.length > 0) {
 
         // Activate items based on progress
         const itemThreshold = 1 / headlineItems.length;
-        headlineItems.forEach((items, index) => {
+        headlineItems.forEach((item, index) => {
             const itemProgress = (index + 1) * itemThreshold;
             if (progress >= itemProgress) {
                 item.classList.add('active');

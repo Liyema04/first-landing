@@ -749,8 +749,9 @@ nav {
 .local-headline .hl {
   position: relative;
   z-index: 1;
-  color: rgba(255, 255, 255, 0.3); /* or transparent */
+  color: transparent; /* or rgba(255, 255, 255, 0.3) */
   padding: 0.5rem 1rem;
+  transition: var(--tran-02);
 }
 
 .local-headline .hl.active {
@@ -1155,30 +1156,98 @@ nav {
     gap: 4rem;
   }
 
-  .local-headline {
+  .local-text-cont {
     display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    align-items: center;
+    flex-direction: column;
+    gap: clamp(1.5rem, 2vw, 1rem);
+    align-items: flex-start; /* Align to left edge of grid cell */
     justify-content: center;
-    color: var(--apex-text);
-    font-weight: 700;
-    font-size: clamp(0.5rem, 1vw, 1rem);
+    padding-left: 8rem; /* Push content away from image */
   }
 
   /* Progressive line & headline animation */
   .local-headline {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 2vw, 1rem);
+    position: relative;
+    padding: 20px 0;
+    font-size: clamp(0.5rem, 1vw, 1rem);
+    /*
+    color: var(--apex-text);
+    font-weight: 700;
+    */
   }
-  
+
+  .local-headline::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent; /* or rgba(255, 255, 255, 0.1) */
+    border-radius: 2px;
+  }
+
+  .local-headline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3cf0c5, #84dbff, #1b98fe);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), var(--tran-05);
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(60, 240, 197, 0.6) 
+  }
+
+  .local-headline.active::after {
+    width: 100%;
+  }
+
+  /* Individual segment progress of elements */
+  .local-headline .hl {
+    position: relative;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .local-headline .hl::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3cf0c5, #84dbff, #1b98fe);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(60, 240, 197, 0.6);
+  }
+
+  .local-headline .hl.active::after {
+    width: 100%;
+  }  
+
   .progress-line {
+    display: none;
+    /*
     width: 4px;
     height: 0;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
     transition: height 0.1s linear;
+    */
   }
+
+  .local-headline .hl {
+    text-align: center;                                   
+  }
+
+  /* Images */
 
   .local-images {
     min-height: 300px;

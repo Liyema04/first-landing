@@ -104,13 +104,16 @@ const headlineItems = document.querySelectorAll('.local-headline .hl');
 
 if (localHeadline && headlineItems.length > 0) {
 
-    // Creating progress line element
-    const progressLine = document.createElement('div');
-    progressLine.classList.add('progress-line');
-    localHeadline.appendChild(progressLine);
-
     // Detect mobile vs desktop
     const isMobile = () => window.innerWidth <= 768;
+
+    // Only create progress line element on desktop
+    let progressLine;
+    if (!isMobile()) { 
+        progressLine = document.createElement('div');
+        progressLine.classList.add('progress-line');
+        localHeadline.appendChild(progressLine);
+    }
 
     // Scroll handler with throttling for performance
     let ticking = false;
@@ -125,21 +128,10 @@ if (localHeadline && headlineItems.length > 0) {
 
         // Calculate progress through the section (0 - 1)
         const progress = Math.max(0, Math.min(1,
-            (scrollPos - sectionTop) / (sectionHeight * 0.8)
+            (scrollPos - sectionTop) / (sectionHeight * 0.3)
         ));
 
-        // Update progress line (width for desktop, height for mobile)
-        if (isMobile()) {
-            const maxHeight = localHeadline.offsetHeight;
-            progressLine.style.height = `${progress * maxHeight}px`;
-            progressLine.style.width = '4px';
-        } else {
-            const maxWidth = localHeadline.offsetWidth;
-            progressLine.style.width = `${progress * maxWidth}px`;
-            progressLine.style.height = '4px';
-        }
-
-        // Activate items based on progress
+        // Activate items sequentially
         const itemThreshold = 1 / headlineItems.length;
         headlineItems.forEach((item, index) => {
             const itemProgress = (index + 1) * itemThreshold;
@@ -149,6 +141,13 @@ if (localHeadline && headlineItems.length > 0) {
                 item.classList.remove('active');
             }
         });
+
+        // Add this after the loop: solid line
+        if (progress >= 1) {
+            localHeadline.classList.add('active');
+        } else {
+            localHeadline.classList.remove('active');
+        }
 
         ticking = false;
     }
@@ -160,7 +159,20 @@ if (localHeadline && headlineItems.length > 0) {
         }
     }
 
+    // Recreate progress line on resize if switching from mobile to desktop
+    function handleResize() {
+        if (!isMobile() && !progressLine) {
+            progressLine = document.createElement('div');
+            progressLine.classList.add('progress-line');
+            localHeadline.appendChild(progressLine);
+        } else if (isMobile() && progressLine) {
+            progressLine.remove();
+            progressLine = null;
+        }
+        updateProgress();
+    }
+
     window.addEventListener('scroll', onScroll);
-    window.addEventListener('resize', updateProgress);
+    window.addEventListener('resize', handleResize);
     updateProgress(); // Initiate call
 }

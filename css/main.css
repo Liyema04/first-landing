@@ -1162,31 +1162,32 @@ nav {
     gap: clamp(1.5rem, 2vw, 1rem);
     align-items: flex-start; /* Align to left edge of grid cell */
     justify-content: center;
-    padding-left: 8rem; /* Push content away from image */
+    padding-left: 4rem; /*  Push content away from image */
   }
 
   /* Progressive line & headline animation */
   .local-headline {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.5rem, 2vw, 1rem);
+    gap: clamp(1rem, 2vw, 1.5rem);
     position: relative;
-    padding: 20px 0;
-    font-size: clamp(0.5rem, 1vw, 1rem);
+    padding: 10px 0;
+    font-size: clamp(0.5rem, 1.2vw, 1rem);
+    width: 100%;
     /*
     color: var(--apex-text);
     font-weight: 700;
     */
   }
 
-  .local-headline::before {
+  /*.local-headline::before {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 4px;
-    background: transparent; /* or rgba(255, 255, 255, 0.1) */
+    background: transparent; /* or rgba(255, 255, 255, 0.1)
     border-radius: 2px;
   }
 
@@ -1201,11 +1202,11 @@ nav {
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), var(--tran-05);
     border-radius: 2px;
     box-shadow: 0 0 20px rgba(60, 240, 197, 0.6) 
-  }
+  } 
 
   .local-headline.active::after {
     width: 100%;
-  }
+  } */
 
   /* Individual segment progress of elements */
   .local-headline .hl {
@@ -1274,7 +1275,20 @@ nav {
   }
 }
 
-/* Then add the responsive shrinking behavior */
+/* Then add the responsive shrinking behavior: */
+
+/* Headline animations container */
+@media (min-width: 769px) and (max-width: 1440px) {
+  .local-grid {
+    padding: 4rem 2rem;
+    gap: clamp(1rem, 1vw, 1.5rem);
+  }
+  
+  .local-text-cont {
+    padding-left: 0 !important; 
+  }
+}
+
 @media (min-width: 1200px) {
   .nav-bar {
     width: 85%;

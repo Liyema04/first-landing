@@ -142,12 +142,13 @@ if (localHeadline && headlineItems.length > 0) {
             }
         });
 
-        // Add this after the loop: solid line
+        /* Add this after the loop: solid line
         if (progress >= 1) {
             localHeadline.classList.add('active');
         } else {
             localHeadline.classList.remove('active');
         }
+        */    
 
         ticking = false;
     }

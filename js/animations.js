@@ -101,6 +101,7 @@ window.addEventListener("resize", () => {
 // Progressive scroll animation for local-headline
 const localHeadline = document.querySelector('.local-headline');
 const headlineItems = document.querySelectorAll('.local-headline .hl');
+const descriptionText = document.querySelector('.local-describe p.describe'); // Select description text
 
 if (localHeadline && headlineItems.length > 0) {
 
@@ -148,8 +149,23 @@ if (localHeadline && headlineItems.length > 0) {
         } else {
             localHeadline.classList.remove('active');
         }
-        */    
+        */
+       
+        // Getting last child element using request method:
+        const lastHeadlineItem =  document.querySelector('.local-headline .hl:last-of-type');
 
+        // Check if lst:chld element exists & is active
+        if (lastHeadlineItem && lastHeadlineItem.classList.contains('active')) {
+            if (!descriptionText.classList.contains('visible')) {
+                setTimeout(() => {
+                    descriptionText.classList.add('visible');
+                }, 300); // 300ms delay after the last title activates 
+            }    
+        } else{
+            // Remove class if the user scrolls back 
+            descriptionText.classList.remove('visible');
+        }
+        
         ticking = false;
     }
 

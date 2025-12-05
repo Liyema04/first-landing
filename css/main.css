@@ -778,6 +778,32 @@ nav {
   transform: translateX(-50%) scaleX(1);
 }
 
+/* Local Description Text */
+.local-describe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.local-describe p.describe {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 500;
+  z-index: 1;
+  width: 100%;
+
+  /* Animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Class added via JS to trigger the animation */
+.local-describe p.describe.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+ 
 @media (max-width: 768px) {
   .local-headline {
     flex-direction: column;
@@ -1246,6 +1272,17 @@ nav {
 
   .local-headline .hl {
     text-align: center;                                   
+  }
+
+  /* Local Description text */
+  .local-describe {
+    padding-left: 8px;
+    padding-top: 10px;
+  }
+
+  .local-describe p.describe {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 500;
   }
 
   /* Images */

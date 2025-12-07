@@ -102,6 +102,7 @@ window.addEventListener("resize", () => {
 const localHeadline = document.querySelector('.local-headline');
 const headlineItems = document.querySelectorAll('.local-headline .hl');
 const descriptionText = document.querySelector('.local-describe p.describe'); // Select description text
+const hightlightText = document.querySelector('.local-highlights'); // Select Highlight text 
 
 if (localHeadline && headlineItems.length > 0) {
 

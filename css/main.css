@@ -843,6 +843,20 @@ nav {
   text-align: center;
 }
 
+/* Local Highlight Text animation */
+.local-highlights ul.hi-light-cont {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+
+/* Class added via JS to trigger the animation */
+.local-highlights ul.hi-light-cont.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 
 @media (max-width: 768px) {

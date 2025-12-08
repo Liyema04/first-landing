@@ -102,7 +102,7 @@ window.addEventListener("resize", () => {
 const localHeadline = document.querySelector('.local-headline');
 const headlineItems = document.querySelectorAll('.local-headline .hl');
 const descriptionText = document.querySelector('.local-describe p.describe'); // Select description text
-const hightlightText = document.querySelector('.local-highlights'); // Select Highlight text 
+const hightlightText = document.querySelector('.local-highlights ul.hi-light-cont'); // Select Highlight text 
 
 if (localHeadline && headlineItems.length > 0) {
 
@@ -154,6 +154,7 @@ if (localHeadline && headlineItems.length > 0) {
        
         // Getting last child element using request method:
         const lastHeadlineItem =  document.querySelector('.local-headline .hl:last-of-type');
+        const describeItem = descriptionText;
 
         // Check if lst:chld element exists & is active
         if (lastHeadlineItem && lastHeadlineItem.classList.contains('active')) {
@@ -162,9 +163,21 @@ if (localHeadline && headlineItems.length > 0) {
                     descriptionText.classList.add('visible');
                 }, 300); // 300ms delay after the last title activates 
             }    
-        } else{
+        } else {
             // Remove class if the user scrolls back 
             descriptionText.classList.remove('visible');
+        }
+
+        // Logic for local highlights animation: 
+        // Check if descrption text exist & is visible 
+        if (describeItem && describeItem.classList.contains('visible')) {
+            if (!hightlightText.classList.contains('visible')) {
+                setTimeout(() => {
+                   hightlightText.classList.add('visible'); 
+                }, 300); // 300ms delay after description text activates
+            }
+        } else {
+            hightlightText.classList.remove('visible');
         }
         
         ticking = false;

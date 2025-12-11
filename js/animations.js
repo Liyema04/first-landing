@@ -24,8 +24,9 @@ navLinks.addEventListener("click", (e) => {
 
 
 const containers = document.querySelectorAll('.text-anim');
-const centeredHolder = document.querySelector('.centered-holder');
+const centeredHolders = document.querySelectorAll('.centered-holder');
 const serviceContainers = document.querySelectorAll('.service-anim');
+const contactContainers = document.querySelectorAll('.contact-anim');
 
 // Observer for any text(or other) animation:
 const observer = new IntersectionObserver(entries => {
@@ -72,21 +73,27 @@ function setupAnimations() {
     if (window.innerWidth >= 600) {
         // Desktop/Tablet: unobserve mobile cards, observe centred-holder
         serviceContainers.forEach(card => mobileCardsObserver.unobserve(card));
-        if (centeredHolder) {
-            desktopCardsObserve.observe(centeredHolder);
-        }
+        contactContainers.forEach(card => mobileCardsObserver. unobserve(card));
+        
+        // Observe ALL centered-holders (services & contacts)
+        centeredHolders.forEach(holder => {
+            desktopCardsObserve.observe(holder);
+        });
     } else {
         // Mobile: unobserve centered-holder, observe individual cards
-        if (centeredHolder) {
-            desktopCardsObserve.unobserve(centeredHolder);
-        }
+        centeredHolders.forEach(holder => {
+            desktopCardsObserve.unobserve(holder);
+        });
         // Mobile: observe individual cards
         serviceContainers.forEach(card => {
             mobileCardsObserver.observe(card);
         });
+        contactContainers.forEach(card => {
+            mobileCardsObserver.observe(card)
+        });
     }
 }
- 
+
 // On-Page load animations 
 document.addEventListener("DOMContentLoaded", setupAnimations);
 

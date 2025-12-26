@@ -1,0 +1,17 @@
+{
+    "name": "apex-it-support",
+    "version": "1.0.0",
+    "description": "Apex IT Support website",
+    "main": "js/server.js",
+    "scripts": {
+        "start": "node js/server.js",
+        "dev": "node js/server.js",
+        "server": "node js/server.js"
+    },
+    "keywords": [],
+    "author": "Liyema Mkebe",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^3.1.11"
+    }
+}

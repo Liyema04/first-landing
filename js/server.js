@@ -1,5 +1,4 @@
-// Configuration for local HTTP server
-// Basic server first: 
+// Configuration for local HTTP server 
 const http = require('http');
 const fs = require('fs').promises;
 const path = require('path');

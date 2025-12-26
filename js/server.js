@@ -15,13 +15,29 @@ const server = http.createServer(async(req, res) => {
             filePath = path.join(__dirname, '..', 'index.html');
 
         } else if (req.url.startsWith('/css/')) {
-            filePath = path.join(__dirname, '..', '..', req.url);
+            // css folder is at project root -- same as js & public folder
+            filePath = path.join(__dirname, '..', req.url);
+
         } else if (req.url.startsWith('/js/')) {
-            filePath = path.join(__dirname, '..', '..', req.url);
+            // js folder is at project root -- same as css & public folder
+            filePath = path.join(__dirname, '..', req.url);
+
         } else if (req.url.startsWith('/images/')) {
-            filePath = path.join(__dirname, '..', 'public', 'images', req.url);
+            filePath = path.join(__dirname, '..', 'public', req.url);
+
         } else if (req.url.startsWith('/assets/')) {
-            filePath = path.join(__dirname, '..', 'public', '..', 'assests', req.url);
+            filePath = path.join(__dirname, '..', 'public', 'images', req.url);
+
+
+        } else if (req.url.startsWith('/contact/')) {
+            filePath = path.join(__dirname, '..', 'public', 'images', req.url);
+
+        } else if (req.url.startsWith('/services/')) {
+            filePath = path.join(__dirname, '..', 'public', 'images', req.url);
+
+        } else if (req.url.startsWith('/fonts/')) {
+            filePath = path.join(__dirname, '..', 'public', req.url);
+                
         } else {
             res.writeHead(404, {'Content-Type': 'text/html'});
             res.end('<h1>404 Not Found </h1>');

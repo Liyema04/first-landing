@@ -148,7 +148,7 @@ nav {
 .hero-image {
   height: 100vh; /*Full viewport height */
   width: 100%;
-  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/public/images/assets/BASE-2.png");
+  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/assets/BASE-2.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -474,36 +474,36 @@ nav {
 
 /* Background images for each card */
 .service-item.img-1 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/pexels-divinetechygirl-1181317.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-divinetechygirl-1181317.jpg);
 }
 
 .service-item.img-2 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/Cloud_Platforms_IoT.png);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/Cloud_Platforms_IoT.png);
 }
 
 .service-item.img-3 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/photo-1558494949-ef010cbdcc31.jpeg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/photo-1558494949-ef010cbdcc31.jpeg);
 }
 
 .service-item.img-4 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/C1-Cybersecurity-Solution-Child-Hero-Image.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/C1-Cybersecurity-Solution-Child-Hero-Image.jpg);
 }
 
 .service-item.img-5 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/pexels-field-engineer-147254-442154.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-field-engineer-147254-442154.jpg);
 }
 
 .service-item.img-6 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/services/jeshoots-com-sMKUYIasyDM-unsplash.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/jeshoots-com-sMKUYIasyDM-unsplash.jpg);
 }
 
 /* Contact Cards - (Images)  */
 .contact-item.img-7 {
-  background-image: linear-gradient(to bottom, rgba(238, 112, 51, 0.3), rgba(27, 152, 254, 0.7)), url(/public/images/contact/pexels-yankrukov-8867474.jpg);
+  background-image: linear-gradient(to bottom, rgba(238, 112, 51, 0.3), rgba(27, 152, 254, 0.7)), url(/contact/pexels-yankrukov-8867474.jpg);
 }
 
 .contact-item.img-8 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(238, 112, 51, 0.7)), url(/public/images/contact/pexels-pavel-danilyuk-7658392.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(238, 112, 51, 0.7)), url(/contact/pexels-pavel-danilyuk-7658392.jpg);
 }
 
 
@@ -784,7 +784,7 @@ nav {
   right: 3px;
   bottom: 3px;
   border-radius: 9px;
-  background-image: linear-gradient(to bottom, rgba(238, 113, 51, 0.3), rgba(251, 156, 55, 0.7)), url(/public/images/services/emmanuel-ikwuegbu--0-kl1BjvFc-unsplash.jpg);
+  background-image: linear-gradient(to bottom, rgba(238, 113, 51, 0.3), rgba(251, 156, 55, 0.7)), url(/services/emmanuel-ikwuegbu--0-kl1BjvFc-unsplash.jpg);
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -1121,7 +1121,7 @@ nav {
 /* Desktop */
 @media (width > 768px) {
   body.hero-wrapper {
-    background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/public/images/assets/BASE-2.png");
+    background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/assets/BASE-2.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

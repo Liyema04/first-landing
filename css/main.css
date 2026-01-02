@@ -17,7 +17,8 @@
   --apex-midnight-gradient-2: linear-gradient(90deg, rgb(238, 112, 51) 0%,rgba(251, 156, 55, 0.4) 38%, rgba(0, 0, 0, 0) 100%); /* desktop */
 
   /* APex gradients */
-  --gradient-nav: linear-gradient(90deg, rgba(229, 253, 254, 0.8)  0%,rgba(132, 219, 255, 1) 38%, rgba(27, 152, 254, 1) 100% ); /*  */
+  --gradient-nav: linear-gradient(90deg, rgba(229, 253, 254, 0.8)  0%,rgba(132, 219, 255, 1) 38%, rgba(27, 152, 254, 1) 100% ); /* navbar */
+  --gradient-nav-light: linear-gradient(90deg, rgba(229, 253, 254, 0.8)  0%,rgba(132, 219, 255, 0.8) 38%, rgba(27, 152, 254, 0.8) 100% ); /* navbar */
   --gradient-btn: linear-gradient(45deg,rgba(27, 152, 254, 1) 0%, rgba(132, 219, 255, 1) 38%, rgba(51, 138, 255, 1) 70%, rgba(60, 240, 197, 0.46) 100%);
   /*Transitions*/
   --tran-01: all 0.1s ease;
@@ -1600,6 +1601,129 @@ nav {
   .contact-item:hover {
     transform: translateY(-5px);
     transition: var(--tran-03);
+  }
+
+  /* Footer */
+  footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    background: var(--gradient-nav-light);
+    color: var(--apex-text);
+    padding: 100px 0 30px;
+    border-top-right-radius: 100px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .row {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between; 
+  }
+
+  .col {
+    flex-basis: 25%;
+    padding: 10px;
+  }
+
+  /* Column headings */
+  .col h3 {
+    width: fit-content;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .email-id {
+    width: fit-content;
+    border-bottom: 2px solid #ccc;
+    margin: 20px 0;
+  }
+  
+  /* Links */
+  .col ul li {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .col ul a {
+    text-decoration: none;
+    color: var(--apex-text);
+  }
+
+  /* Email Submit Form */
+  form {
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--apex-text);
+    margin-bottom: 50px;
+    caret-color: var(--apex-text) !important;
+  }
+
+  form .ri {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  form input {
+    width: 100%;
+    background: transparent;
+    color: var(--apex-text); 
+    border: 0;
+    outline: none;
+  }
+
+  form button {
+    background: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  form button .rs {
+    font-size: 18px;
+    color: var(--apex-text);
+  }
+
+  ::placeholder {
+    color: #ccc;
+    font-family: "Montserrat", sans-serif;
+    opacity: 1;
+  }
+  
+  /* Footer logo different styling from parent */
+  .col .cont-1 {
+    width: 80px;
+    margin-bottom: 30px;
+  }
+
+  .cont-1 img.apex-logo {
+    width: clamp(36px, 4vw, 50px); /* ✅ scale down gracefully */
+    height: auto;
+    display: block;
+    margin: 0;
+    flex-shrink: 1; 
+  }
+
+  .cont-1 a {
+    font-size: clamp(1rem, 1.8vw, 1.5rem); /* ✅ responsive text size */
+    font-weight: 700;
+    color: var(--white);
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 1;
+  }
+
+  .cont-1 a span {
+    font-weight: 700;
+    color: var(--primary-color);
   }
 }
 

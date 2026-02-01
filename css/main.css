@@ -1314,6 +1314,75 @@ form button .rs {
     margin: 0 auto;
     width: 100%;
   }
+
+  /* Contact grid blocks */
+  .contact-grid-cont {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    gap: 1.5rem;
+  }
+
+  /* Tablet: Use container animation instead of individual cards  */
+  .centered-holder {
+    translate: -100%;
+    opacity: 0;
+    transition: 800ms ease;
+  }
+
+  .centered-holder.visible {
+    translate: 0;
+    opacity: 1;
+  }
+
+  /* Disable individual card animations on tablet */
+  .service-grid-cont .service-anim {
+    translate: 0;
+    opacity: 1;
+    transition: none;
+  }
+
+  .service-grid-cont .service-anim.visible {
+    translate: 0;
+    opacity: 1;
+  }
+
+  /* Remove stagger delays on tablet */
+  .service-anim:nth-child(1),
+  .service-anim:nth-child(2),
+  .service-anim:nth-child(3),
+  .service-anim:nth-child(4),
+  .service-anim:nth-child(5),
+  .service-anim:nth-child(6) {
+    transition-delay: 0;
+  }
+
+  /* Same for contact cards */
+  .contact-cont .centered-holder {
+    translate: -100%;
+    opacity: 0;
+    transition: 800ms ease;
+  }
+
+  .contact-cont .centered-holder.visible {
+    translate: 0;
+    opacity: 1;
+  }
+
+  .contact-grid-cont .contact-anim {
+    translate: 0;
+    opacity: 1;
+    transition: none;
+  }
+
+  .contact-grid-cont .contact-anim.visible {
+    translate: 0;
+    opacity: 1;
+  }
+
+  .contact-anim:nth-child(1),
+  .contact-anim:nth-child(2) {
+    transition-delay: 0;
+  }
 }
 
 /* Desktop: 3 Columns for larger screens */
@@ -1324,8 +1393,8 @@ form button .rs {
     gap: 2rem;
   }
   
-  .service-item:last-child:nth-child(odd) {
-    grid-column: span 1;
+  .service-item:nth-child(odd):last-child {
+    grid-column: auto; /* or -> span 1 */
     max-width: none;
   }
 }

@@ -92,6 +92,16 @@ function setupAnimations() {
             mobileCardsObserver.observe(card)
         });
     }
+
+    // Force trigger animation to check for already visible elements 
+    setTimeout( () => {
+        centeredHolders.forEach(holder => {
+            const rect = holder.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                holder.classList.add('visible');
+            }
+        });
+    }, 100);
 }
 
 // On-Page load animations 

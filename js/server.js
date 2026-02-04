@@ -11,7 +11,17 @@ const server = http.createServer(async(req, res) => {
         let filePath;
 
         if (req.url === '/') {
-            filePath = path.join(__dirname, '..', 'index.html');
+            filePath = path.join(__dirname, '..', 'index.html'); // Base Template
+
+        //  Other templates for main tabs: 
+        } else if (req.url === '/templates/services' || req.url === '/templates/services.html') {
+            filePath = path.join(__dirname, '..', 'public', 'templates', 'services.html');
+
+        } else if (req.url === '/templates/why-apex' || req.url === '/templates/why-apex.html') {
+            filePath = path.join(__dirname, '..', 'public', 'templates', 'why-apex.html');
+
+        } else if (req.url === '/templates/get-in-touch' || req.url === '/templates/get-in-touch.html') {
+            filePath = path.join(__dirname, '..', 'public', 'templates', 'get-in-touch.html');    
 
         } else if (req.url.startsWith('/css/')) {
             // css folder is at project root -- same as js & public folder

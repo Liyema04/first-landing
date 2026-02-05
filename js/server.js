@@ -23,9 +23,17 @@ const server = http.createServer(async(req, res) => {
         } else if (req.url === '/templates/get-in-touch' || req.url === '/templates/get-in-touch.html') {
             filePath = path.join(__dirname, '..', 'public', 'templates', 'get-in-touch.html');    
 
+        // Other stylesheets
+        
+        } else if (req.url === '/css/reset' || req.url === '/css/reset.css') {
+            filePath = path.join(__dirname, '..', 'css', 'reset.css'); // redundant
+            
+        } else if (req.url === '/css/responsive' || req.url === '/css/responsive.css') {
+            filePath = path.join(__dirname, '..', 'css', 'responsive.css'); // redundant
+            
         } else if (req.url.startsWith('/css/')) {
             // css folder is at project root -- same as js & public folder
-            filePath = path.join(__dirname, '..', req.url);
+            filePath = path.join(__dirname, '..', req.url);    
 
         } else if (req.url.startsWith('/js/')) {
             // js folder is at project root -- same as css & public folder

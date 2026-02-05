@@ -28,6 +28,24 @@ const centeredHolders = document.querySelectorAll('.centered-holder');
 const serviceContainers = document.querySelectorAll('.service-anim');
 const contactContainers = document.querySelectorAll('.contact-anim');
 
+// Query selector for global(!= index.html) animation class:
+const item = document.querySelectorAll('.anim-fade-up');
+
+// Observer for animation on other templates:
+const globalItemObserver = new IntersectionObserver (
+    (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) { 
+                entry.target.classList.add('anim-visible');
+            } else {
+                // Not intersecting remove visible class
+                entry.target.classList.remove('anim-visible');
+            }    
+        });
+    }, 
+    { threshold: 0.3 }
+);
+
 // Observer for any text(or other) animation:
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -68,6 +86,7 @@ const mobileCardsObserver = new IntersectionObserver(entries => {
 function setupAnimations() {
     // Observe all text animations
     containers.forEach(container => observer.observe(container));
+    item.forEach((iO) => globalItemObserver.observe(iO));
 
     // Desktop & Mobile logic
     if (window.innerWidth >= 600) {

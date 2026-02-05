@@ -1,0 +1,194 @@
+/* Shared base styles & utilities (staged in reset.css for testing) */
+@import url(/css/main.css);
+
+:root {
+  --section-pad: 2rem 0;
+  --section-gap: 1.25rem;
+  --section-gap-1: 1.5rem;
+  --section-title-size: clamp(2rem, 6vw, 4rem);
+  --section-desc-size: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+/* Layout helpers */
+.u-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.u-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.u-max {
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+/* Section base */
+.section {
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--section-pad);
+  position: relative;
+}
+
+/* Backgrounds: */
+
+/* Hero background-imgs: */
+.ut-hero-img {
+  /* same properties as hero-image (mobile-only) */
+  height: 100vh; /*Full viewport height */
+  width: 100%;
+  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), var(--hero-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bg {
+  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5));
+}
+
+.hero_section__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--section-gap-1);
+  text-align: left;
+  padding: 2rem;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  color: var(--apex-text);
+}
+
+.hero_section__text hr.line-sep {
+  margin: 0; /* gap handles spacing */
+  width: clamp(200px, 50%, 800px);
+  border: 6px solid var(--primary-light);
+  border-radius: 5px;
+}
+
+.section--light { background: var(--apex-text); }
+.section--blue { background: rgba(27, 152, 254, 0.4); }
+.section--dark { background: var(--apex-midnight-gradient); }
+
+.section__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  text-align: center;
+  padding: 2rem;
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+.section__title {
+  margin: 0;
+  line-height: 1.02;
+  font-size: var(--section-title-size);
+  font-weight: 700;
+}
+
+.section__desc {
+  margin: 0;
+  font-size: var(--section-desc-size);
+  font-weight: 500;
+}
+
+/* Button base + modifiers */
+.btn {
+  position: relative;
+  min-width: 150px;
+  height: 50px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 50px;
+  border-radius: 1rem;
+  color: var(--apex-text);
+  background: rgba(27, 152, 254, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--white);
+  background-clip: padding-box;
+  transition: var(--tran-03);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.btn--sm {
+  height: 30px;
+  line-height: 30px;
+  padding: 6px 12px;
+}
+
+.btn--blue::before,
+.btn--orange::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 1rem;
+  background-size: 150%;
+  opacity: 0;
+  transition: opacity var(--tran-03);
+  animation: anime 10s linear infinite;
+  z-index: -1;
+}
+
+.btn--blue::before {
+  background: linear-gradient(-45deg, #1b98fe, #84dbff, #338aff, #3cf0c5);
+}
+
+.btn--orange::before {
+  background: linear-gradient(-45deg, #ee7033, #fcd330, #fb9c37, #E83333);
+}
+
+.btn:hover::before { opacity: 1; }
+
+.btn:hover {
+  transform: translateY(-2px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animation utilities */
+.anim-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.anim-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.anim-stagger-1 { transition-delay: 0.1s; }
+.anim-stagger-2 { transition-delay: 0.3s; }
+.anim-stagger-3 { transition-delay: 0.5s; }
+.anim-stagger-4 { transition-delay: 0.7s; }
+
+
+/* Desktop Adjustments */
+@media (width > 768px) {
+  body.ut-body-wrapper {
+    /* same properties as .hero-wrapper (desktop-only) */
+    background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), var(--body-bg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* keeps image fixed while scrolling */
+    min-height: 100vh;
+  }
+
+  .ut-hero-img {
+    display: flex;
+    background-image: none;
+    height: auto;
+    min-height: 60vh;
+  }
+}

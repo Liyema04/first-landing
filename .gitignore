@@ -52,6 +52,7 @@ build/
 *.tmp
 *.temp
 .cache/
+*.txt
 
 # Testing
 coverage/

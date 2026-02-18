@@ -188,7 +188,7 @@
   .ut-hero-img {
     display: flex;
     background-image: none;
-    height: auto;
+    height: 100vh;
     min-height: 60vh;
   }
 }

@@ -22,7 +22,7 @@ navLinks.addEventListener("click", (e) => {
     menuBtnIcon.setAttribute("class", "ri-menu-line"); 
 })
 
-
+// Section selectors (~ Containers ~) :
 const containers = document.querySelectorAll('.text-anim');
 const centeredHolders = document.querySelectorAll('.centered-holder');
 const serviceContainers = document.querySelectorAll('.service-anim');
@@ -60,6 +60,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 
 // Observer for service cards(responsive):
+
 // Observer for desktop (centered-holder container)
 const desktopCardsObserve = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -82,6 +83,7 @@ const mobileCardsObserver = new IntersectionObserver(entries => {
     });
 }, { rootMargin: "0px 0px -250px 250px" }); // Or use threshold
 
+// Service Overview Labels -- Parallax Animation:
 
 function setupAnimations() {
     // Observe all text animations

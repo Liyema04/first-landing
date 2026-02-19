@@ -83,7 +83,237 @@ const mobileCardsObserver = new IntersectionObserver(entries => {
     });
 }, { rootMargin: "0px 0px -250px 250px" }); // Or use threshold
 
-// Service Overview Labels -- Parallax Animation:
+// Service Overview Labels -- Animation:
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceOverviewSection = document.getElementById('serviceOverview');
+    if (!serviceOverviewSection) return;
+
+    const serviceSvg = serviceOverviewSection.querySelector('.service-overview__svg');
+    const circles = serviceOverviewSection.querySelectorAll('.service-circle');
+    const texts = serviceOverviewSection.querySelectorAll('.service-text');
+    const numbers = serviceOverviewSection.querySelectorAll('.service-circle-number');
+    const lineActivated = serviceOverviewSection.querySelector('#lineActivated');
+    const lineDeactivated = serviceOverviewSection.querySelector('#lineDeactivated');
+
+    if (!serviceSvg || !lineActivated || !lineDeactivated || circles.length === 0 || texts.length !== circles.length || numbers.length !== circles.length) return;
+
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const horizontalBreakpoint = 600;
+
+    const verticalLayout = {
+        viewBox: '0 0 360 560',
+        line: { x1: 100, y1: 55, x2: 100, y2: 482 },
+        circles: [
+            { cx: 100, cy: 70 },
+            { cx: 100, cy: 200 },
+            { cx: 100, cy: 330 },
+            { cx: 100, cy: 460 }
+        ],
+        texts: [
+            { x: 170, y: 70 },
+            { x: 170, y: 200 },
+            { x: 170, y: 330 },
+            { x: 170, y: 460 }
+        ],
+        textAnchor: 'start',
+        dominantBaseline: 'middle',
+        axis: 'y',
+        activeStart: 55,
+        circleRadius: 22,
+        lineStrokeWidth: 5,
+        numberFontSize: 16,
+        labelFontSize: 20
+    };
+
+    const horizontalLayout = {
+        viewBox: '0 0 520 220',
+        line: { x1: 70, y1: 110, x2: 460, y2: 110 },
+        circles: [
+            { cx: 70, cy: 110 },
+            { cx: 200, cy: 110 },
+            { cx: 330, cy: 110 },
+            { cx: 460, cy: 110 }
+        ],
+        texts: [
+            { x: 70, y: 165 },
+            { x: 200, y: 165 },
+            { x: 330, y: 165 },
+            { x: 460, y: 165 }
+        ],
+        textAnchor: 'middle',
+        dominantBaseline: 'middle',
+        axis: 'x',
+        activeStart: 70,
+        circleRadius: 15,
+        lineStrokeWidth: 3,
+        numberFontSize: 12,
+        labelFontSize: 14
+    };
+
+    let circlePositions = [];
+    let minY = 0;
+    let maxY = 0;
+    let range = 1;
+    let pinDistance = 0;
+    let activeAxis = 'y';
+    let activeLayout = verticalLayout;
+
+    const isHorizontalLayout = () => window.innerWidth >= horizontalBreakpoint;
+
+    const applySvgLayout = () => {
+        activeLayout = isHorizontalLayout() ? horizontalLayout : verticalLayout;
+        activeAxis = activeLayout.axis;
+
+        serviceOverviewSection.classList.toggle('service-overview--horizontal', activeAxis === 'x');
+        serviceSvg.setAttribute('viewBox', activeLayout.viewBox);
+
+        lineDeactivated.setAttribute('x1', String(activeLayout.line.x1));
+        lineDeactivated.setAttribute('y1', String(activeLayout.line.y1));
+        lineDeactivated.setAttribute('x2', String(activeLayout.line.x2));
+        lineDeactivated.setAttribute('y2', String(activeLayout.line.y2));
+        lineDeactivated.setAttribute('stroke-width', String(activeLayout.lineStrokeWidth));
+
+        lineActivated.setAttribute('x1', String(activeLayout.line.x1));
+        lineActivated.setAttribute('y1', String(activeLayout.line.y1));
+        lineActivated.setAttribute('x2', String(activeLayout.axis === 'x' ? activeLayout.activeStart : activeLayout.line.x1));
+        lineActivated.setAttribute('y2', String(activeLayout.axis === 'y' ? activeLayout.activeStart : activeLayout.line.y1));
+        lineActivated.setAttribute('stroke-width', String(activeLayout.lineStrokeWidth));
+
+        circles.forEach((circle, index) => {
+            const position = activeLayout.circles[index];
+            circle.setAttribute('cx', String(position.cx));
+            circle.setAttribute('cy', String(position.cy));
+            circle.setAttribute('r', String(activeLayout.circleRadius));
+        });
+
+        numbers.forEach((num, index) => {
+            const position = activeLayout.circles[index];
+            num.setAttribute('x', String(position.cx));
+            num.setAttribute('y', String(position.cy));
+            num.setAttribute('font-size', String(activeLayout.numberFontSize));
+        });
+
+        texts.forEach((text, index) => {
+            const position = activeLayout.texts[index];
+            text.setAttribute('x', String(position.x));
+            text.setAttribute('y', String(position.y));
+            text.setAttribute('text-anchor', activeLayout.textAnchor);
+            text.setAttribute('dominant-baseline', activeLayout.dominantBaseline);
+            text.setAttribute('font-size', String(activeLayout.labelFontSize));
+        });
+    };
+
+    const getCirclePositions = () => {
+        const positions = [];
+        circles.forEach(circle => {
+            const coordinate = activeAxis === 'x'
+                ? parseFloat(circle.getAttribute('cx'))
+                : parseFloat(circle.getAttribute('cy'));
+            if (Number.isFinite(coordinate)) {
+                positions.push(coordinate);
+            }
+        });
+        return positions;
+    };
+
+    const recalculateTimelineGeometry = () => {
+        circlePositions = getCirclePositions();
+        if (circlePositions.length !== circles.length) return false;
+
+        minY = circlePositions[0];
+        maxY = circlePositions[circlePositions.length - 1];
+        range = Math.max(1, maxY - minY);
+        return true;
+    };
+
+    const setPinDistance = () => {
+        const stepCount = Math.max(0, circles.length - 1);
+        const stepDistance = Math.max(180, window.innerHeight * 0.28);
+        pinDistance = (stepCount * stepDistance) + (window.innerHeight * 0.35);
+        serviceOverviewSection.style.setProperty('--service-pin-distance', `${pinDistance}px`);
+    };
+
+    const applyProgress = (progress) => {
+        const safeProgress = clamp(progress, 0, 1);
+        const currentLineY = minY + (range * safeProgress);
+        if (activeAxis === 'x') {
+            lineActivated.setAttribute('x2', String(clamp(currentLineY, minY, maxY)));
+            lineActivated.setAttribute('y2', String(activeLayout.line.y1));
+        } else {
+            lineActivated.setAttribute('y2', String(clamp(currentLineY, minY, maxY)));
+            lineActivated.setAttribute('x2', String(activeLayout.line.x1));
+        }
+
+        circles.forEach((circle, index) => {
+            const circleY = circlePositions[index];
+            const circleProgress = (circleY - minY) / range;
+
+            if (safeProgress >= circleProgress) {
+                circle.setAttribute('fill', '#84dbff');
+                texts[index].setAttribute('fill', '#84dbff');
+                numbers[index].style.fill = '#ffffff';   // active number visible
+            } else {
+                circle.setAttribute('fill', '#ffffff00');
+                texts[index].setAttribute('fill', '#ffffff00');
+                numbers[index].style.fill = '#ffffff00'; // inactive number hidden
+            }
+        });
+    };
+
+    const updateServiceTimeline = () => {
+        const pinStart = serviceOverviewSection.offsetTop;
+        const pinEnd = pinStart + pinDistance;
+        const scrollY = window.scrollY;
+        const progress = pinDistance <= 0
+            ? 1
+            : clamp((scrollY - pinStart) / (pinEnd - pinStart), 0, 1);
+
+        applyProgress(progress);
+    };
+
+    applySvgLayout();
+    if (!recalculateTimelineGeometry()) return;
+
+    if (prefersReducedMotion.matches) {
+        serviceOverviewSection.style.setProperty('--service-pin-distance', '0px');
+        applyProgress(1);
+        window.addEventListener('resize', () => {
+            applySvgLayout();
+            recalculateTimelineGeometry();
+            applyProgress(1);
+        });
+        return;
+    }
+
+    setPinDistance();
+    updateServiceTimeline();
+
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            window.requestAnimationFrame(() => {
+                updateServiceTimeline();
+                scrollTicking = false;
+            });
+            scrollTicking = true;
+        }
+    });
+
+    let resizeTicking = false;
+    window.addEventListener('resize', () => {
+        if (!resizeTicking) {
+            window.requestAnimationFrame(() => {
+                applySvgLayout();
+                recalculateTimelineGeometry();
+                setPinDistance();
+                updateServiceTimeline();
+                resizeTicking = false;
+            });
+            resizeTicking = true;
+        }
+    });
+});
 
 function setupAnimations() {
     // Observe all text animations
@@ -245,3 +475,4 @@ if (localHeadline && headlineItems.length > 0) {
     window.addEventListener('resize', handleResize);
     updateProgress(); // Initiate call
 }
+

@@ -97,9 +97,18 @@
   font-weight: 700;
 }
 
+#serviceOverview .section__text {
+  gap: 0.5rem;
+}
+
 #serviceOverview .section__title {
   text-align: center;
   color: var(--apex-text);
+}
+
+#serviceOverview .service-overview__cont {
+  margin: 0;
+  padding: 1rem 1rem 2rem 1rem;
 }
 
 .section__desc {

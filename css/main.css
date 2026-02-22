@@ -1078,9 +1078,21 @@ nav {
 }
 
 /* Service Expansion blocks */
-#serviceExp0 { 
+#serviceExp0,
+#serviceExp1,
+#serviceExp2,
+#serviceExp3,
+#serviceExp4,
+#serviceExp5 { 
   scroll-margin-top: 100px; 
 }
+
+#serviceExp1Desk,
+#serviceExp3Desk,
+#serviceExp5Desk {
+  scroll-margin-top: 100px;
+}
+
 
 @media (max-width: 599px) {
   #serviceOverview .service-circle-number {

@@ -27,12 +27,142 @@
   margin-inline: auto;
 }
 
+hr.line-sep {
+  margin: 0; /* gap handles spacing */
+  width: clamp(200px, 50%, 800px);
+  border: 6px solid var(--primary-light);
+  border-radius: 5px;
+}
+
 /* Section base */
 .section {
   width: 100%;
   min-height: 100vh;
   padding: var(--section-pad);
   position: relative;
+}
+
+/* Text Expansion layout */
+.grid-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: 2em;
+}
+
+.grid-block-bg {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.article-image-0 {
+  width: 100%;
+  min-height: 300px;
+  transform: translateX(0);
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+
+  overflow: hidden;
+}
+
+/* Animated border effect for mobile using pseudo-element */
+.article-image-0::after,
+.article-image-1::after,
+.article-image-2::after,
+.article-image-3::after,
+.article-image-4::after,
+.article-image-5::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 3px;
+  background: linear-gradient(45deg,  #1b98fe, #84dbff, #338aff, #3cf0c5);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradientRotate 8s linear infinite;
+  pointer-events: none;
+}
+
+.article-image-0::before,
+.article-image-1::before,
+.article-image-2::before,
+.article-image-3::before,
+.article-image-4::before,
+.article-image-5::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border-radius: 9px;
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-divinetechygirl-1181317.jpg);
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.article-image-1::before {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/Cloud_Platforms_IoT.png);
+}
+
+.article-image-2::before {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/photo-1558494949-ef010cbdcc31.jpeg);
+}
+
+.article-image-3::before {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/C1-Cybersecurity-Solution-Child-Hero-Image.jpg);
+}
+
+.article-image-4::before {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-field-engineer-147254-442154.jpg);
+}
+
+.article-image-5::before {
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/jeshoots-com-sMKUYIasyDM-unsplash.jpg);
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.aside-text-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--primary-light);
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--primary-color);
+}
+
+.describe {
+  margin: 0;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 300;
 }
 
 /* Backgrounds: */
@@ -104,6 +234,15 @@
 #serviceOverview .section__title {
   text-align: center;
   color: var(--apex-text);
+}
+
+#managedServices {
+  color: var(--apex-text);
+}
+
+#managedServices .section__title,
+#managedServices .section__desc {
+  text-align: left;
 }
 
 #serviceOverview .service-overview__cont {
@@ -214,4 +353,24 @@
 
   .section--d-m { background: var(--apex-midnight-gradient); }
   .section--d-m-0 { background: var(--apex-midnight-gradient-2); }
+
+  .grid-block {
+    grid-template-columns: 1fr 2fr; /* This creates the 1:2 ratio */
+    align-items: center;
+    padding: 4rem 2rem;
+    gap: 4rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1440px) {
+  .grid-block {
+    padding: 4rem 2rem;
+    gap: clamp(1rem, 1vw, 1.5rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-block {
+    gap: 4rem;
+  }
 }

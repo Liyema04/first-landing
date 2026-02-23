@@ -222,6 +222,7 @@ hr.line-sep {
 
 .section--light { background: var(--apex-text); }
 .section--blue { background: rgba(27, 152, 254, 0.4); }
+.section--b-m { background: var(--apex-midnight-gradient-4); }
 .section--dark { background: var(--apex-midnight-gradient); }
 .section--d-m { background: var(--apex-midnight-gradient-1); }
 .section--d-m-0 { background: var(--apex-midnight-gradient-3); }
@@ -369,6 +370,7 @@ hr.line-sep {
 
   .section--d-m { background: var(--apex-midnight-gradient); }
   .section--d-m-0 { background: var(--apex-midnight-gradient-2); }
+  .section--b-m { background: rgba(27, 152, 254, 0.4); }
 
   .grid-block-1 {
     grid-template-columns: 1fr 2fr; /* This creates the 1:2 ratio */

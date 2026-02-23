@@ -17,6 +17,8 @@
   --apex-midnight-gradient-1: linear-gradient(180deg, rgb(43, 27, 23) 0%, rgb(238, 112, 51) 38%,rgba(251, 156, 55, 0.4) 100%); /* mobile */
   --apex-midnight-gradient-2: linear-gradient(90deg, rgb(238, 112, 51) 0%,rgba(251, 156, 55, 0.4) 38%, rgba(0, 0, 0, 0) 100%); /* desktop */
   --apex-midnight-gradient-3: linear-gradient(180deg, rgba(238, 112, 51) 0%, rgba(43, 27, 23, 0.85) 38%, rgb(43, 27, 23) 100%); /* mobile */
+  --apex-midnight-gradient-4: linear-gradient(180deg, rgba(251, 156, 55, 0.4) 0%, rgb(132, 219, 255) 38%,rgb(43, 27, 23) 100%); /* mobile */
+
 
 
   /* APex gradients */

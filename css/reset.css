@@ -262,6 +262,15 @@ hr.line-sep {
   text-align: left;
 }
 
+#solutionsOverview {
+  color: var(--apex-text);
+}
+
+#solutionsOverview .section__title,
+#solutionsOverview .section__desc {
+  text-align: left;
+}
+
 #serviceOverview .service-overview__cont {
   margin: 0;
   padding: 1rem 1rem 2rem 1rem;

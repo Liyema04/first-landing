@@ -315,6 +315,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Solutions Overview Labels -- Animation: (Global)
+/* document.addEventListener('DOMContentLoaded', function() {
+    const solutionsOverviewSection = document.getElementById('solutionsOverview');
+    if (!solutionsOverviewSection) return;
+
+    const solutionsSvg = solutionsOverviewSection.querySelector('.solutions-overview__svg');
+    const circles = solutionsOverviewSection.querySelectorAll('.solutions-circle');
+    const texts = solutionsOverviewSection.querySelectorAll('.solutions-text');
+    const numbers = solutionsOverviewSection.querySelectorAll('.solutions-circle-number');
+    const lineActivated = solutionsOverviewSection.querySelector('#lineActivated');
+    const lineDeactivated = solutionsOverviewSection.querySelector('#lineDeactivated');
+
+    if (!solutionsSvg || !lineActivated || !lineDeactivated || circles.length === 0 || texts.length !== circles.length || numbers.length !== circles.length) return;
+
+
+}); */
+
 function setupAnimations() {
     // Observe all text animations
     containers.forEach(container => observer.observe(container));

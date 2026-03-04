@@ -16,7 +16,7 @@ menuBtn.addEventListener("click", (e) => {
 // When clicking on a nav-link: 
 navLinks.addEventListener("click", (e) => {
     // Hides other nav-links & reverts to (close state)
-    navLinks.classList.remove("open"); 
+    navLinks.classList.remove("open");
 
     // Changes menu-btn icon in close state
     menuBtnIcon.setAttribute("class", "ri-menu-line"); 
@@ -83,115 +83,69 @@ const mobileCardsObserver = new IntersectionObserver(entries => {
     });
 }, { rootMargin: "0px 0px -250px 250px" }); // Or use threshold
 
-// Service Overview Labels -- Animation:
-document.addEventListener('DOMContentLoaded', function() {
-    const serviceOverviewSection = document.getElementById('serviceOverview');
-    if (!serviceOverviewSection) return;
+// Interactive Timelines Engine:
+function initOverviewTimeline(config) {
+    // setup + guards
+    const section = document.getElementById(config.sectionId);
+    if (!section) return;
 
-    const serviceSvg = serviceOverviewSection.querySelector('.service-overview__svg');
-    const circles = serviceOverviewSection.querySelectorAll('.service-circle');
-    const texts = serviceOverviewSection.querySelectorAll('.service-text');
-    const numbers = serviceOverviewSection.querySelectorAll('.service-circle-number');
-    const lineActivated = serviceOverviewSection.querySelector('#lineActivated');
-    const lineDeactivated = serviceOverviewSection.querySelector('#lineDeactivated');
+    const svg = section.querySelector(config.svgSelector);
+    const markers = section.querySelectorAll(config.markerSelector);
+    const numbers = section.querySelectorAll(config.numberSelector);
+    const texts = section.querySelectorAll(config.textSelector);
+    const lineBase = section.querySelector(config.lineBaseSelector);
+    const lineActive = section.querySelector(config.lineActiveSelector);
 
-    if (!serviceSvg || !lineActivated || !lineDeactivated || circles.length === 0 || texts.length !== circles.length || numbers.length !== circles.length) return;
+    const isValid = svg && lineBase && lineActive && markers.length > 0 && texts.length === markers.length && numbers.length === markers.length;
+    if (!isValid) {
+        console.warn(`[timeline] Invalid config for #${config.sectionId}`);
+        return;
+    }
 
     const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const horizontalBreakpoint = 600;
-
-    const verticalLayout = {
-        viewBox: '0 0 360 560',
-        line: { x1: 100, y1: 55, x2: 100, y2: 482 },
-        circles: [
-            { cx: 100, cy: 70 },
-            { cx: 100, cy: 200 },
-            { cx: 100, cy: 330 },
-            { cx: 100, cy: 460 }
-        ],
-        texts: [
-            { x: 170, y: 70 },
-            { x: 170, y: 200 },
-            { x: 170, y: 330 },
-            { x: 170, y: 460 }
-        ],
-        textAnchor: 'start',
-        dominantBaseline: 'middle',
-        axis: 'y',
-        activeStart: 55,
-        circleRadius: 22,
-        lineStrokeWidth: 5,
-        numberFontSize: 16,
-        labelFontSize: 20
-    };
-
-    const horizontalLayout = {
-        viewBox: '0 0 520 220',
-        line: { x1: 70, y1: 110, x2: 460, y2: 110 },
-        circles: [
-            { cx: 70, cy: 110 },
-            { cx: 200, cy: 110 },
-            { cx: 330, cy: 110 },
-            { cx: 460, cy: 110 }
-        ],
-        texts: [
-            { x: 70, y: 165 },
-            { x: 200, y: 165 },
-            { x: 330, y: 165 },
-            { x: 460, y: 165 }
-        ],
-        textAnchor: 'middle',
-        dominantBaseline: 'middle',
-        axis: 'x',
-        activeStart: 70,
-        circleRadius: 15,
-        lineStrokeWidth: 3,
-        numberFontSize: 12,
-        labelFontSize: 14
-    };
-
-    let circlePositions = [];
-    let minY = 0;
-    let maxY = 0;
+    
+    // per-instance state
+    let markerPositions = [];
+    let minPos = 0;
+    let maxPos = 0;
     let range = 1;
     let pinDistance = 0;
-    let activeAxis = 'y';
-    let activeLayout = verticalLayout;
+    let activeAxis = "y"
+    let activeLayout = config.layouts.vertical
 
-    const isHorizontalLayout = () => window.innerWidth >= horizontalBreakpoint;
-
-    const applySvgLayout = () => {
-        activeLayout = isHorizontalLayout() ? horizontalLayout : verticalLayout;
+    const isHorizontalLayout = () => window.innerWidth >= (config.horizontalBreakpoint ?? 600);
+    
+    // applyLayout()
+    const applyLayout = () => {
+        activeLayout = isHorizontalLayout() ? (config.layouts.horizontal) : (config.layouts.vertical);
         activeAxis = activeLayout.axis;
 
-        serviceOverviewSection.classList.toggle('service-overview--horizontal', activeAxis === 'x');
-        serviceSvg.setAttribute('viewBox', activeLayout.viewBox);
+        section.classList.toggle(config.horizontalClass, activeAxis === 'x');
+        svg.setAttribute("viewBox", activeLayout.viewBox);
 
-        lineDeactivated.setAttribute('x1', String(activeLayout.line.x1));
-        lineDeactivated.setAttribute('y1', String(activeLayout.line.y1));
-        lineDeactivated.setAttribute('x2', String(activeLayout.line.x2));
-        lineDeactivated.setAttribute('y2', String(activeLayout.line.y2));
-        lineDeactivated.setAttribute('stroke-width', String(activeLayout.lineStrokeWidth));
+        lineBase.setAttribute('x1', String(activeLayout.line.x1));
+        lineBase.setAttribute('y1', String(activeLayout.line.y1));
+        lineBase.setAttribute('x2', String(activeLayout.line.x2));
+        lineBase.setAttribute('y2', String(activeLayout.line.y2));
+        lineBase.setAttribute('stroke-width', String(activeLayout.lineStrokeWidth));
 
-        lineActivated.setAttribute('x1', String(activeLayout.line.x1));
-        lineActivated.setAttribute('y1', String(activeLayout.line.y1));
-        lineActivated.setAttribute('x2', String(activeLayout.axis === 'x' ? activeLayout.activeStart : activeLayout.line.x1));
-        lineActivated.setAttribute('y2', String(activeLayout.axis === 'y' ? activeLayout.activeStart : activeLayout.line.y1));
-        lineActivated.setAttribute('stroke-width', String(activeLayout.lineStrokeWidth));
+        lineActive.setAttribute('x1', String(activeLayout.line.x1));
+        lineActive.setAttribute('y1', String(activeLayout.line.y1));
+        lineActive.setAttribute('x2', String(activeLayout.axis === 'x' ? activeLayout.activeStart : activeLayout.line.x1));
+        lineActive.setAttribute('y2', String(activeLayout.axis === 'y' ? activeLayout.activeStart : activeLayout.line.y1));
+        lineActive.setAttribute('stroke-width', String(activeLayout.lineStrokeWidth));
 
-        circles.forEach((circle, index) => {
-            const position = activeLayout.circles[index];
-            circle.setAttribute('cx', String(position.cx));
-            circle.setAttribute('cy', String(position.cy));
-            circle.setAttribute('r', String(activeLayout.circleRadius));
+        markers.forEach((marker, index) => {
+            const center = activeLayout.markers[index];
+            setMarkerGeometry(marker, center, activeLayout.markerRadius, config.markerShape);
         });
 
         numbers.forEach((num, index) => {
-            const position = activeLayout.circles[index];
+            const position = activeLayout.markers[index];
             num.setAttribute('x', String(position.cx));
             num.setAttribute('y', String(position.cy));
-            num.setAttribute('font-size', String(activeLayout.numberFontSize));
+            num.setAttribute('font-size', String(activeLayout.numberFontSize)); 
         });
 
         texts.forEach((text, index) => {
@@ -200,16 +154,41 @@ document.addEventListener('DOMContentLoaded', function() {
             text.setAttribute('y', String(position.y));
             text.setAttribute('text-anchor', activeLayout.textAnchor);
             text.setAttribute('dominant-baseline', activeLayout.dominantBaseline);
-            text.setAttribute('font-size', String(activeLayout.labelFontSize));
+            text.setAttribute('font-size', String(activeLayout.labelFontSize)); 
         });
     };
 
-    const getCirclePositions = () => {
+    const setMarkerGeometry = (marker, center, radius, shape) => {
+        const { cx, cy } = center;
+
+        // Keep a single source of truth for position lookups
+        marker.dataset.centerX = String(cx);
+        marker.dataset.centerY = String(cy);
+
+        if (shape === "diamond") {
+            // A diamond is a square rotated 45deg around its center
+            const side = radius * Math.SQRT2;
+            marker.setAttribute("x", String(cx - side / 2));
+            marker.setAttribute("y", String(cy - side / 2));
+            marker.setAttribute("width", String(side));
+            marker.setAttribute("height", String(side));
+            marker.setAttribute("transform", `rotate(45 ${cx} ${cy})`);
+        } else {
+            marker.setAttribute("cx", String(cx));
+            marker.setAttribute("cy", String(cy));
+            marker.setAttribute("r", String(radius));
+            marker.removeAttribute("transform");
+        }
+    };
+
+
+    // Getting marker positions:
+    const getMarkerPositions = () => {
         const positions = [];
-        circles.forEach(circle => {
-            const coordinate = activeAxis === 'x'
-                ? parseFloat(circle.getAttribute('cx'))
-                : parseFloat(circle.getAttribute('cy'));
+        markers.forEach(marker => {
+            const coordinate = activeAxis === 'x' 
+            ? parseFloat(marker.dataset.centerX) 
+            : parseFloat(marker.dataset.centerY);
             if (Number.isFinite(coordinate)) {
                 positions.push(coordinate);
             }
@@ -217,69 +196,72 @@ document.addEventListener('DOMContentLoaded', function() {
         return positions;
     };
 
+    // recalculateTimelineGeometry()
     const recalculateTimelineGeometry = () => {
-        circlePositions = getCirclePositions();
-        if (circlePositions.length !== circles.length) return false;
+        markerPositions = getMarkerPositions();
+        if (markerPositions.length !== markers.length) return false;
 
-        minY = circlePositions[0];
-        maxY = circlePositions[circlePositions.length - 1];
-        range = Math.max(1, maxY - minY);
+        minPos = markerPositions[0];
+        maxPos = markerPositions[markerPositions.length - 1];
+        range = Math.max(1, maxPos - minPos);
         return true;
     };
 
     const setPinDistance = () => {
-        const stepCount = Math.max(0, circles.length - 1);
+        const stepCount = Math.max(0, markers.length - 1);
         const stepDistance = Math.max(180, window.innerHeight * 0.28);
         pinDistance = (stepCount * stepDistance) + (window.innerHeight * 0.35);
-        serviceOverviewSection.style.setProperty('--service-pin-distance', `${pinDistance}px`);
+        section.style.setProperty(config.pinDistanceVar, `${pinDistance}px`);
     };
 
+    // applyProgress()
     const applyProgress = (progress) => {
         const safeProgress = clamp(progress, 0, 1);
-        const currentLineY = minY + (range * safeProgress);
+        const currentLinePos = minPos + (range * safeProgress);
         if (activeAxis === 'x') {
-            lineActivated.setAttribute('x2', String(clamp(currentLineY, minY, maxY)));
-            lineActivated.setAttribute('y2', String(activeLayout.line.y1));
+            lineActive.setAttribute('x2', String(clamp(currentLinePos, minPos, maxPos)));
+            lineActive.setAttribute('y2', String(activeLayout.line.y1));
         } else {
-            lineActivated.setAttribute('y2', String(clamp(currentLineY, minY, maxY)));
-            lineActivated.setAttribute('x2', String(activeLayout.line.x1));
+            lineActive.setAttribute('y2', String(clamp(currentLinePos, minPos, maxPos)));
+            lineActive.setAttribute('x2', String(activeLayout.line.x1));
         }
 
-        circles.forEach((circle, index) => {
-            const circleY = circlePositions[index];
-            const circleProgress = (circleY - minY) / range;
+        markers.forEach((marker, index) => {
+            const markerPos = markerPositions[index];
+            const markerProgress = (markerPos - minPos) / range;
 
-            if (safeProgress >= circleProgress) {
-                circle.setAttribute('fill', '#84dbff');
+            if (safeProgress >= markerProgress) {
+                marker.setAttribute('fill', '#84dbff');
                 texts[index].setAttribute('fill', '#84dbff');
-                numbers[index].style.fill = '#ffffff';   // active number visible
+                numbers[index].style.fill = '#ffffff'; // active number visible
             } else {
-                circle.setAttribute('fill', '#ffffff00');
+                marker.setAttribute('fill', '#ffffff00');
                 texts[index].setAttribute('fill', '#ffffff00');
-                numbers[index].style.fill = '#ffffff00'; // inactive number hidden
+                numbers[index].style.fill = '#ffffff00'; // inactive number visible
             }
         });
     };
-
-    const updateServiceTimeline = () => {
-        const pinStart = serviceOverviewSection.offsetTop;
+    
+    // scroll/resise/reduced-motion listeners
+    const updateTimelineFromScroll = () => {
+        const pinStart = section.offsetTop;
         const pinEnd = pinStart + pinDistance;
-        const scrollY = window.scrollY;
-        const progress = pinDistance <= 0
-            ? 1
-            : clamp((scrollY - pinStart) / (pinEnd - pinStart), 0, 1);
+        const scrollPos = window.scrollY;
+        const progress = pinDistance <= 0 
+        ? 1 
+        : clamp((scrollPos - pinStart) / (pinEnd - pinStart), 0, 1);
 
         applyProgress(progress);
     };
 
-    applySvgLayout();
+    applyLayout();
     if (!recalculateTimelineGeometry()) return;
-
+    
     if (prefersReducedMotion.matches) {
-        serviceOverviewSection.style.setProperty('--service-pin-distance', '0px');
+        section.style.setProperty(config.pinDistanceVar, '0px');
         applyProgress(1);
         window.addEventListener('resize', () => {
-            applySvgLayout();
+            applyLayout();
             recalculateTimelineGeometry();
             applyProgress(1);
         });
@@ -287,13 +269,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setPinDistance();
-    updateServiceTimeline();
+    updateTimelineFromScroll();
 
     let scrollTicking = false;
     window.addEventListener('scroll', () => {
-        if (!scrollTicking) {
+        if(!scrollTicking) {
             window.requestAnimationFrame(() => {
-                updateServiceTimeline();
+                updateTimelineFromScroll();
                 scrollTicking = false;
             });
             scrollTicking = true;
@@ -304,33 +286,161 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         if (!resizeTicking) {
             window.requestAnimationFrame(() => {
-                applySvgLayout();
+                applyLayout();
                 recalculateTimelineGeometry();
                 setPinDistance();
-                updateServiceTimeline();
+                updateTimelineFromScroll();
                 resizeTicking = false;
             });
             resizeTicking = true;
         }
     });
+}
+
+const serviceOverviewConfig = {
+    sectionId: 'serviceOverview',
+    markerShape: 'circle',
+    // selectors:
+    svgSelector: '.service-overview__svg',
+    markerSelector: '.service-circle',
+    textSelector: '.service-text',
+    numberSelector: '.service-circle-number',
+    lineBaseSelector: '.timeline-line--base',
+    lineActiveSelector: '.timeline-line--active',
+    // Layouts:
+
+    // behavior/style hooks
+    horizontalClass: 'service-overview--horizontal',
+    pinDistanceVar: '--service-pin-distance',
+    horizontalBreakpoint: 600,
+    
+    // geometry
+    layouts: {
+        // Vertical (Mobile):
+        vertical: {
+            viewBox: '0 0 360 560',
+            line: { x1: 100, y1: 55, x2: 100, y2: 482 },
+            markers: [
+                { cx: 100, cy: 70 },
+                { cx: 100, cy: 200 },
+                { cx: 100, cy: 330 },
+                { cx: 100, cy: 460 }
+            ],
+            texts: [
+                { x: 170, y: 70 },
+                { x: 170, y: 200 },
+                { x: 170, y: 330 },
+                { x: 170, y: 460 }
+            ],
+            textAnchor: 'start',
+            dominantBaseline: 'middle',
+            axis: 'y',
+            activeStart: 55,
+            markerRadius: 22,
+            lineStrokeWidth: 5,
+            numberFontSize: 16,
+            labelFontSize: 20
+        },
+        // Horizontal (Destop & Tablet):
+        horizontal: {
+            viewBox: '0 0 520 220',
+            line: { x1: 70, y1: 110, x2: 460, y2: 110 },
+            markers: [
+                { cx: 70, cy: 110 },
+                { cx: 200, cy: 110 },
+                { cx: 330, cy: 110 },
+                { cx: 460, cy: 110 }
+            ],
+            texts: [
+                { x: 70, y: 165 },
+                { x: 200, y: 165 },
+                { x: 330, y: 165 },
+                { x: 460, y: 165 }
+            ],
+            textAnchor: 'middle',
+            dominantBaseline: 'middle',
+            axis: 'x',
+            activeStart: 70,
+            markerRadius: 15,
+            lineStrokeWidth: 3,
+            numberFontSize: 12,
+            labelFontSize: 14   
+        },
+    }
+};
+
+const solutionsOverviewConfig = {
+    sectionId: 'solutionsOverview',
+    markerShape: 'diamond',
+    // selectors: 
+    svgSelector: '.solutions-overview__svg',
+    markerSelector: '.solutions-marker', // diamonds
+    textSelector: '.solutions-text',
+    numberSelector: '.solutions-circle-number',
+    lineBaseSelector: '.timeline-line--base',
+    lineActiveSelector: '.timeline-line--active',
+    // Layouts:
+
+    // behavior/style hooks
+    horizontalClass: "solutions-overview--horizontal",
+    pinDistanceVar: "--solutions-pin-distance",
+    horizontalBreakpoint: 600,
+
+    layouts: {
+        // Vertical (Mobile):
+        vertical: {
+        viewBox: "0 0 360 430",
+        line: { x1: 100, y1: 55, x2: 100, y2: 352 },
+        markers: [
+            { cx: 100, cy: 70 },
+            { cx: 100, cy: 200 },
+            { cx: 100, cy: 330 }
+        ],
+        texts: [
+            { x: 170, y: 70 },
+            { x: 170, y: 200 },
+            { x: 170, y: 330 }
+        ],
+        textAnchor: "start",
+        dominantBaseline: "middle",
+        axis: "y",
+        activeStart: 55,
+        markerRadius: 14,
+        lineStrokeWidth: 4,
+        numberFontSize: 11,
+        labelFontSize: 20
+        },
+        // Horizontal (Destop & Tablet):
+        horizontal: {
+        viewBox: "0 0 560 220",
+        line: { x1: 70, y1: 95, x2: 490, y2: 95 },
+        markers: [
+            { cx: 70, cy: 95 },
+            { cx: 280, cy: 95 },
+            { cx: 490, cy: 95 }
+        ],
+        texts: [
+            { x: 70, y: 150 },
+            { x: 280, y: 150 },
+            { x: 490, y: 150 }
+        ],
+        textAnchor: "middle",
+        dominantBaseline: "middle",
+        axis: "x",
+        activeStart: 70,
+        markerRadius: 11,
+        lineStrokeWidth: 3,
+        numberFontSize: 10,
+        labelFontSize: 14
+        }
+    }    
+
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    initOverviewTimeline(serviceOverviewConfig);
+    initOverviewTimeline(solutionsOverviewConfig);
 });
-
-// Solutions Overview Labels -- Animation: (Global)
-/* document.addEventListener('DOMContentLoaded', function() {
-    const solutionsOverviewSection = document.getElementById('solutionsOverview');
-    if (!solutionsOverviewSection) return;
-
-    const solutionsSvg = solutionsOverviewSection.querySelector('.solutions-overview__svg');
-    const circles = solutionsOverviewSection.querySelectorAll('.solutions-circle');
-    const texts = solutionsOverviewSection.querySelectorAll('.solutions-text');
-    const numbers = solutionsOverviewSection.querySelectorAll('.solutions-circle-number');
-    const lineActivated = solutionsOverviewSection.querySelector('#lineActivated');
-    const lineDeactivated = solutionsOverviewSection.querySelector('#lineDeactivated');
-
-    if (!solutionsSvg || !lineActivated || !lineDeactivated || circles.length === 0 || texts.length !== circles.length || numbers.length !== circles.length) return;
-
-
-}); */
 
 function setupAnimations() {
     // Observe all text animations

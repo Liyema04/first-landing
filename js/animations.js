@@ -102,6 +102,13 @@ function initOverviewTimeline(config) {
         return;
     }
 
+    const svgNs = 'http://www.w3.org/2000/svg';
+    texts.forEach((textNode) => {
+        if (!textNode.dataset.label) {
+            textNode.dataset.label = textNode.textContent.trim();
+        }
+    });
+
     const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     
@@ -116,6 +123,135 @@ function initOverviewTimeline(config) {
 
     const isHorizontalLayout = () => window.innerWidth >= (config.horizontalBreakpoint ?? 600);
     
+    const getTextLength = (textNode, sample, fontSize) => {
+        textNode.setAttribute('font-size', String(fontSize));
+        textNode.textContent = sample;
+        try {
+            const measured = textNode.getComputedTextLength();
+            if (Number.isFinite(measured)) return measured;
+        } catch (error) {
+            // Use fallback estimate if browser cannot measure yet.
+        }
+        return sample.length * fontSize * 0.56;
+    };
+
+    const buildWrappedLines = (textNode, label, maxWidth, maxLines, fontSize) => {
+        const words = label.split(/\s+/).filter(Boolean);
+        if (words.length === 0) return [''];
+
+        const lines = [];
+        let current = words[0];
+
+        for (let i = 1; i < words.length; i++) {
+            const candidate = `${current} ${words[i]}`;
+            if (getTextLength(textNode, candidate, fontSize) <= maxWidth) {
+                current = candidate;
+                continue;
+            }
+
+            lines.push(current);
+            current = words[i];
+
+            if (lines.length === maxLines - 1) {
+                current = `${current} ${words.slice(i + 1).join(' ')}`.trim();
+                break;
+            }
+        }
+
+        lines.push(current);
+        if (lines.length > maxLines) return null;
+        if (lines.some((line) => getTextLength(textNode, line, fontSize) > maxWidth)) return null;
+        return lines;
+    };
+
+    const getViewBoxMetrics = () => {
+        const values = String(activeLayout.viewBox || '')
+            .trim()
+            .split(/\s+/)
+            .map(Number);
+
+        if (values.length !== 4 || values.some((value) => !Number.isFinite(value))) {
+            return { minX: 0, minY: 0, width: 0, height: 0 };
+        }
+
+        return {
+            minX: values[0],
+            minY: values[1],
+            width: values[2],
+            height: values[3]
+        };
+    };
+
+    const getBoundedLabelWidth = (position, preferredWidth) => {
+        const { minX, width } = getViewBoxMetrics();
+        if (width <= 0) return preferredWidth;
+
+        const edgePadding = config.labelEdgePadding ?? 12;
+        const maxX = minX + width;
+        const anchor = activeLayout.textAnchor;
+
+        let bounded = preferredWidth;
+        if (anchor === 'middle') {
+            const halfSpace = Math.max(
+                0,
+                Math.min(position.x - minX, maxX - position.x) - edgePadding
+            );
+            bounded = Math.min(preferredWidth, halfSpace * 2);
+        } else if (anchor === 'start') {
+            bounded = Math.min(preferredWidth, Math.max(0, (maxX - position.x) - edgePadding));
+        } else if (anchor === 'end') {
+            bounded = Math.min(preferredWidth, Math.max(0, (position.x - minX) - edgePadding));
+        }
+
+        return Math.max(80, bounded);
+    };
+
+    const setTimelineLabel = (textNode, label, position) => {
+        const baseFontSize = activeLayout.labelFontSize;
+        const minFontSize = config.minLabelFontSize ?? Math.max(10, baseFontSize - 4);
+        const maxLines = config.labelMaxLines ?? 2;
+        const lineHeightEm = config.labelLineHeightEm ?? 1.08;
+        const preferredWidth = activeAxis === 'x'
+            ? (activeLayout.labelMaxWidth ?? config.horizontalLabelMaxWidth ?? 190)
+            : (activeLayout.labelMaxWidth ?? config.verticalLabelMaxWidth ?? 250);
+        const maxWidth = getBoundedLabelWidth(position, preferredWidth);
+
+        textNode.setAttribute('x', String(position.x));
+        textNode.setAttribute('y', String(position.y));
+        textNode.setAttribute('text-anchor', activeLayout.textAnchor);
+        textNode.setAttribute('dominant-baseline', activeLayout.dominantBaseline);
+
+        if (!config.wrapLabels) {
+            textNode.textContent = label;
+            textNode.setAttribute('font-size', String(baseFontSize));
+            return;
+        }
+
+        let fontSize = baseFontSize;
+        let lines = [label];
+
+        for (let size = baseFontSize; size >= minFontSize; size--) {
+            const wrapped = buildWrappedLines(textNode, label, maxWidth, maxLines, size);
+            if (wrapped) {
+                fontSize = size;
+                lines = wrapped;
+                break;
+            }
+        }
+
+        textNode.textContent = '';
+        textNode.setAttribute('font-size', String(fontSize));
+
+        const firstDy = lines.length > 1 ? -((lines.length - 1) * lineHeightEm) / 2 : 0;
+        lines.forEach((line, index) => {
+            const tspan = document.createElementNS(svgNs, 'tspan');
+            tspan.setAttribute('x', String(position.x));
+            tspan.setAttribute('dy', `${index === 0 ? firstDy : lineHeightEm}em`);
+            tspan.textContent = line;
+            textNode.appendChild(tspan);
+        });
+    };
+
     // applyLayout()
     const applyLayout = () => {
         activeLayout = isHorizontalLayout() ? (config.layouts.horizontal) : (config.layouts.vertical);
@@ -150,11 +286,8 @@ function initOverviewTimeline(config) {
 
         texts.forEach((text, index) => {
             const position = activeLayout.texts[index];
-            text.setAttribute('x', String(position.x));
-            text.setAttribute('y', String(position.y));
-            text.setAttribute('text-anchor', activeLayout.textAnchor);
-            text.setAttribute('dominant-baseline', activeLayout.dominantBaseline);
-            text.setAttribute('font-size', String(activeLayout.labelFontSize)); 
+            const rawLabel = text.dataset.label ?? '';
+            setTimelineLabel(text, rawLabel, position);
         });
     };
 
@@ -300,6 +433,7 @@ function initOverviewTimeline(config) {
 const serviceOverviewConfig = {
     sectionId: 'serviceOverview',
     markerShape: 'circle',
+    wrapLabels: false,
     // selectors:
     svgSelector: '.service-overview__svg',
     markerSelector: '.service-circle',
@@ -372,6 +506,13 @@ const serviceOverviewConfig = {
 const solutionsOverviewConfig = {
     sectionId: 'solutionsOverview',
     markerShape: 'diamond',
+    wrapLabels: true,
+    labelMaxLines: 2,
+    labelLineHeightEm: 1.08,
+    verticalLabelMaxWidth: 196,
+    horizontalLabelMaxWidth: 168,
+    minLabelFontSize: 14,
+    labelEdgePadding: 14,
     // selectors: 
     svgSelector: '.solutions-overview__svg',
     markerSelector: '.solutions-marker', // diamonds
@@ -397,41 +538,43 @@ const solutionsOverviewConfig = {
             { cx: 100, cy: 330 }
         ],
         texts: [
-            { x: 170, y: 70 },
-            { x: 170, y: 200 },
-            { x: 170, y: 330 }
+            { x: 150, y: 70 },
+            { x: 150, y: 200 },
+            { x: 150, y: 330 }
         ],
         textAnchor: "start",
         dominantBaseline: "middle",
         axis: "y",
         activeStart: 55,
-        markerRadius: 14,
+        markerRadius: 16.1, // +15%
         lineStrokeWidth: 4,
-        numberFontSize: 11,
-        labelFontSize: 20
+        numberFontSize: 12.65, // +15%
+        labelFontSize: 20.7, // +15%
+        labelMaxWidth: 196
         },
         // Horizontal (Destop & Tablet):
         horizontal: {
-        viewBox: "0 0 560 220",
-        line: { x1: 70, y1: 95, x2: 490, y2: 95 },
+        viewBox: "0 0 740 230",
+        line: { x1: 90, y1: 95, x2: 650, y2: 95 },
         markers: [
-            { cx: 70, cy: 95 },
-            { cx: 280, cy: 95 },
-            { cx: 490, cy: 95 }
+            { cx: 90, cy: 95 },
+            { cx: 370, cy: 95 },
+            { cx: 650, cy: 95 }
         ],
         texts: [
-            { x: 70, y: 150 },
-            { x: 280, y: 150 },
-            { x: 490, y: 150 }
+            { x: 90, y: 158 },
+            { x: 370, y: 158 },
+            { x: 650, y: 158 }
         ],
         textAnchor: "middle",
         dominantBaseline: "middle",
         axis: "x",
-        activeStart: 70,
-        markerRadius: 11,
+        activeStart: 90,
+        markerRadius: 12.1, // +10%
         lineStrokeWidth: 3,
-        numberFontSize: 10,
-        labelFontSize: 14
+        numberFontSize: 11, // +10%
+        labelFontSize: 14.3, // +10%
+        labelMaxWidth: 168
         }
     }    
 

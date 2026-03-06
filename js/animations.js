@@ -365,7 +365,7 @@ function initOverviewTimeline(config) {
 
             if (safeProgress >= markerProgress) {
                 marker.setAttribute('fill', '#84dbff');
-                texts[index].setAttribute('fill', '#84dbff');
+                texts[index].setAttribute('fill', '#fff');
                 numbers[index].style.fill = '#ffffff'; // active number visible
             } else {
                 marker.setAttribute('fill', '#ffffff00');
@@ -546,10 +546,10 @@ const solutionsOverviewConfig = {
         dominantBaseline: "middle",
         axis: "y",
         activeStart: 55,
-        markerRadius: 16.1, // +15%
+        markerRadius: 20.1, // +15%
         lineStrokeWidth: 4,
-        numberFontSize: 12.65, // +15%
-        labelFontSize: 20.7, // +15%
+        numberFontSize: 16.65, // +15%
+        labelFontSize: 24.7, // +15%
         labelMaxWidth: 196
         },
         // Horizontal (Destop & Tablet):
@@ -570,10 +570,10 @@ const solutionsOverviewConfig = {
         dominantBaseline: "middle",
         axis: "x",
         activeStart: 90,
-        markerRadius: 12.1, // +10%
+        markerRadius: 16.1, // +10%
         lineStrokeWidth: 3,
-        numberFontSize: 11, // +10%
-        labelFontSize: 14.3, // +10%
+        numberFontSize: 12.65, // +10%
+        labelFontSize: 20.7, // +10%
         labelMaxWidth: 168
         }
     }    

@@ -276,6 +276,18 @@ hr.line-sep {
   padding: 1rem 1rem 2rem 1rem;
 }
 
+/* Need help (CTA) */
+#needHelpCta .section__title {
+  text-align: center;
+  color: var(--apex-text); 
+}
+
+section.section#needHelpCta {
+  min-height: unset;
+  min-height: 650px;
+  height: 650px; 
+}
+
 .section__desc {
   margin: 0;
   font-size: var(--section-desc-size);
@@ -308,6 +320,12 @@ hr.line-sep {
   padding: 6px 12px;
 }
 
+.btn--lg {
+  height: 60px;
+  line-height: 60px;
+  padding: 12px 24px;
+}
+
 .btn--blue::before,
 .btn--orange::before {
   content: '';
@@ -335,6 +353,19 @@ hr.line-sep {
   transform: translateY(-2px);
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
+
+/* Button Containers */
+.large-buttons__cont {
+  /* Grid View  */
+  grid-template-columns: repeat(2, minmax(250px, 1fr));
+  max-width: 1200px;
+  gap: 2rem !important;
+}
+
+.button_cont {
+  position: relative;
+}
+
 
 /* Animation utilities */
 .anim-fade-up {
@@ -380,6 +411,12 @@ hr.line-sep {
   .section--d-m { background: var(--apex-midnight-gradient); }
   .section--d-m-0 { background: var(--apex-midnight-gradient-2); }
   .section--b-m { background: rgba(27, 152, 254, 0.4); }
+
+  section.section#needHelpCta {
+    min-height: unset;
+    min-height: 650px;
+    height: 650px; 
+  }
 
   .grid-block-1 {
     grid-template-columns: 1fr 2fr; /* This creates the 1:2 ratio */

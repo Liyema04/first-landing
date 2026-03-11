@@ -284,8 +284,8 @@ hr.line-sep {
 
 section.section#needHelpCta {
   min-height: unset;
-  min-height: 650px;
-  height: 650px; 
+  min-height: 450px;
+  height: 450px; 
 }
 
 .section__desc {
@@ -303,9 +303,29 @@ section.section#needHelpCta {
   font-size: 16px;
   font-weight: 500;
   line-height: 50px;
-  border-radius: 1rem;
+  border-radius: 999px;
   color: var(--apex-text);
   background: rgba(27, 152, 254, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--white);
+  background-clip: padding-box;
+  transition: var(--tran-03);
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Orange button-before*/
+.btn__0 {
+  position: relative;
+  min-width: 150px;
+  height: 50px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 50px;
+  border-radius: 999px;
+  color: var(--apex-text);
+  background: rgb(238, 112, 51, 0.1);
   backdrop-filter: blur(10px);
   border: 2px solid var(--white);
   background-clip: padding-box;
@@ -321,9 +341,16 @@ section.section#needHelpCta {
 }
 
 .btn--lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 200px;
   height: 60px;
-  line-height: 60px;
-  padding: 12px 24px;
+  padding: 0px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .btn--blue::before,
@@ -331,8 +358,9 @@ section.section#needHelpCta {
   content: '';
   position: absolute;
   inset: -2px;
-  border-radius: 1rem;
+  border-radius: 999px;
   background-size: 150%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
   opacity: 0;
   transition: opacity var(--tran-03);
   animation: anime 10s linear infinite;
@@ -348,8 +376,15 @@ section.section#needHelpCta {
 }
 
 .btn:hover::before { opacity: 1; }
+.btn__0:hover::before { opacity: 1; }
+
 
 .btn:hover {
+  transform: translateY(-2px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn__0:hover {
   transform: translateY(-2px);
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
@@ -357,15 +392,23 @@ section.section#needHelpCta {
 /* Button Containers */
 .large-buttons__cont {
   /* Grid View  */
-  grid-template-columns: repeat(2, minmax(250px, 1fr));
-  max-width: 1200px;
-  gap: 2rem !important;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 720px;
+  padding-top: 2.5rem;
+  margin: 2rem auto 0;
+  gap: 1.25rem !important;
 }
 
 .button_cont {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
-
 
 /* Animation utilities */
 .anim-fade-up {
@@ -414,8 +457,8 @@ section.section#needHelpCta {
 
   section.section#needHelpCta {
     min-height: unset;
-    min-height: 650px;
-    height: 650px; 
+    min-height: 450px;
+    height: 450px; 
   }
 
   .grid-block-1 {
@@ -444,6 +487,41 @@ section.section#needHelpCta {
     display: grid;
     margin-inline: auto;
     padding: 2em;
+  }
+
+  .large-buttons__cont {
+    padding-top: 3.5rem;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    max-width: 720px;
+    gap: 1.25rem !important;
+    width: 100%;
+  }
+
+}
+
+.btn--large,
+.btn--lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 260px;
+  padding: 0 34px;
+  height: 60px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .large-buttons__cont {
+    grid-template-columns: 1fr;
+  }
+
+  .btn--large,
+  .btn--lg {
+    min-width: 220px;
   }
 }
 

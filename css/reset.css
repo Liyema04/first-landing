@@ -375,10 +375,6 @@ section.section#needHelpCta {
   background: linear-gradient(-45deg, #ee7033, #fcd330, #fb9c37, #E83333);
 }
 
-.btn:hover::before { opacity: 1; }
-.btn__0:hover::before { opacity: 1; }
-
-
 .btn:hover {
   transform: translateY(-2px);
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -402,6 +398,24 @@ section.section#needHelpCta {
   padding-top: 2.5rem;
   margin: 2rem auto 0;
   gap: 1.25rem !important;
+}
+
+/* CTA-BUTTONS: Always animating on (touch-devices) */
+.large-buttons__cont .btn--blue::before,
+.large-buttons__cont .btn--orange::before {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .large-buttons__cont .btn--blue::before,
+  .large-buttons__cont .btn--orange::before {
+    opacity: 0;
+  } 
+}
+
+.btn:hover::before,
+.btn__0:hover::before {
+  opacity: 1;
 }
 
 .button_cont {
@@ -489,6 +503,7 @@ section.section#needHelpCta {
     padding: 2em;
   }
 
+  /* CTA buttons - desktop/tablet */
   .large-buttons__cont {
     padding-top: 3.5rem;
     grid-template-columns: repeat(2, minmax(260px, 1fr));
@@ -497,21 +512,20 @@ section.section#needHelpCta {
     width: 100%;
   }
 
-}
-
-.btn--large,
-.btn--lg {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 260px;
-  padding: 0 34px;
-  height: 60px;
-  border-radius: 999px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-  text-align: center;
+  .btn--large,
+  .btn--lg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 260px;
+    padding: 0 34px;
+    height: 60px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+  }
 }
 
 @media (max-width: 640px) {

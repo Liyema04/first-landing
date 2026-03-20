@@ -157,7 +157,10 @@ nav {
 .hero-image {
   height: 100vh; /*Full viewport height */
   width: 100%;
-  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/assets/BASE-2.png");
+  background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), image-set(
+    url("/assets/BASE-2-small.png") 1x,
+    url("/assets/BASE-2-medium.png") 2x
+  );
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1568,7 +1571,7 @@ form button .rs {
   }
 }
 
-/* Desktop: 3 Columns for larger screens */
+/* Desktop: 3 Columns for larger screens & Image Optimization */
 @media (min-width: 900px) {
   .service-grid-cont {
     grid-template-columns: repeat(3, 1fr);
@@ -1580,6 +1583,16 @@ form button .rs {
     grid-column: auto; /* or -> span 1 */
     max-width: none;
   }
+
+  /* Responsive background images */
+  /* Home */
+  .hero-image {
+    background-image: image-set(
+      url("/assets/BASE-2-medium.png") 1x,
+      url("/assets/BASE-2-large.png") 2x
+    );
+  }
+  /* Services */
 }
 
 

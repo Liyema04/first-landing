@@ -37,7 +37,16 @@
     </nav>
     <main>
         <!-- HERO (Using shared utilities) -->
-        <section class="section ut-hero-img" style="--hero-bg: url('/services/joshua-sortino-LqKhnDzSF-8-unsplash.jpg');">
+        <section class="section ut-hero-img" style="--hero-bg: image-set(
+            url('/services/hero-2-small.jpg') 1x,
+            url('/services/hero-2-medium.jpg') 2x
+            );
+            @media (min-width: 900px) {
+                --hero-bg: image-set(
+                    url('/services/hero-2-medium.jpg') 1x,
+                    url('/services/hero-2-large.jpg') 2x
+                );
+            }">
             <div> <!--Mobile-->
                 <div class="hero_section__text">
                     <h1 class="section__title anim-fade-up anim-stagger-3">Focused On The Dynamic Growth of Your Organisation</h1>

@@ -68,8 +68,15 @@ const server = http.createServer(async(req, res) => {
         res.end(content);
 
     } catch (error) {
+        if (error.code === 'ENOENT') {
+            console.error('404 File Not Found:', filePath);
+            res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
+            res.end('404 Not Found');
+            return;
+        }
+
         console.error('Error:', error.message, 'Path:', filePath);
-        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
         res.end('Internal Server Error');
     }
 });

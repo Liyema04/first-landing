@@ -121,30 +121,48 @@ hr.line-sep {
   right: 3px;
   bottom: 3px;
   border-radius: 9px;
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-divinetechygirl-1181317.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/pexels-divinetechygirl-small.jpg) 1x,
+    url(/services/pexels-divinetechygirl-medium.jpg) 2x
+  );
   background-size: cover;
   background-position: center;
   z-index: -1;
 }
 
 .article-image-1::before {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/Cloud_Platforms_IoT.png);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/Cloud_Platforms_IoT-small.png) 1x,
+    url(/services/Cloud_Platforms_IoT-medium.png) 2x
+  );
 }
 
 .article-image-2::before {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/photo-1558494949-ef010cbdcc31.jpeg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/photo-network_platform-large.jpg) 1x,
+    url(/services/photo-network_platform-large.jpg) 2x
+  );
 }
 
 .article-image-3::before {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/C1-Cybersecurity-Solution-Child-Hero-Image.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/C1-Cybersecurity-Solution-Child-small.jpg) 1x,
+    url(/services/C1-Cybersecurity-Solution-Child-medium.jpg) 2x
+    );
 }
 
 .article-image-4::before {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-field-engineer-147254-442154.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/pexels-field-engineer-small.jpg) 1x,
+    url(/services/pexels-field-engineer-medium.jpg) 2x
+  );
 }
 
 .article-image-5::before {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/jeshoots-com-sMKUYIasyDM-unsplash.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/jeshoots-com-small.jpg) 1x,
+    url(/services/jeshoots-com-medium.jpg) 2x
+  );
 }
 
 @property --angle {

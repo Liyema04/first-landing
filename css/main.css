@@ -486,36 +486,60 @@ nav {
 
 /* Background images for each card */
 .service-item.img-1 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-divinetechygirl-1181317.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/pexels-divinetechygirl-small.jpg) 1x,
+    url(/services/pexels-divinetechygirl-medium.jpg) 2x
+  );
 }
 
 .service-item.img-2 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/Cloud_Platforms_IoT.png);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/Cloud_Platforms_IoT-small.png) 1x,
+    url(/services/Cloud_Platforms_IoT-medium.png) 2x
+  );
 }
 
 .service-item.img-3 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/photo-1558494949-ef010cbdcc31.jpeg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/photo-network_platform-small.jpg) 1x,
+    url(/services/photo-network_platform-medium.jpg) 2x
+  );
 }
 
 .service-item.img-4 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/C1-Cybersecurity-Solution-Child-Hero-Image.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/C1-Cybersecurity-Solution-Child-small.jpg) 1x,
+    url(/services/C1-Cybersecurity-Solution-Child-medium.jpg) 2x
+  );
 }
 
 .service-item.img-5 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/pexels-field-engineer-147254-442154.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/pexels-field-engineer-small.jpg) 1x,
+    url(/services/pexels-field-engineer-medium.jpg) 2x
+  );
 }
 
 .service-item.img-6 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), url(/services/jeshoots-com-sMKUYIasyDM-unsplash.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/services/jeshoots-com-small.jpg) 1x,
+    url(/services/jeshoots-com-medium.jpg) 2x
+  );
 }
 
 /* Contact Cards - (Images)  */
 .contact-item.img-7 {
-  background-image: linear-gradient(to bottom, rgba(238, 112, 51, 0.3), rgba(27, 152, 254, 0.7)), url(/contact/pexels-yankrukov-8867474.jpg);
+  background-image: linear-gradient(to bottom, rgba(238, 112, 51, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/contact/pexels-yankrukov-small.jpg) 1x,
+    url(/contact/pexels-yankrukov-medium.jpg) 2x
+  );
 }
 
 .contact-item.img-8 {
-  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(238, 112, 51, 0.7)), url(/contact/pexels-pavel-danilyuk-7658392.jpg);
+  background-image: linear-gradient(to bottom, rgba(27, 152, 254, 0.3), rgba(238, 112, 51, 0.7)), image-set(
+    url(/contact/pexels-pavel-danilyuk-small.jpg) 1x,
+    url(/contact/pexels-pavel-danilyuk-medium.jpg) 2x
+  );
 }
 
 
@@ -1599,7 +1623,10 @@ form button .rs {
 /* Desktop */
 @media (width > 768px) {
   body.hero-wrapper {
-    background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), url("/assets/BASE-2.png");
+    background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), image-set(
+      url("/assets/BASE-2-medium.png") 1x,
+      url("/assets/BASE-2-large.png") 2x
+    );
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

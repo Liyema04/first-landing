@@ -12,7 +12,10 @@
     <!--Remix Icons-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
-<body class="ut-body-wrapper" style="--body-bg: url('/services/joshua-sortino-LqKhnDzSF-8-unsplash.jpg');"> 
+<body class="ut-body-wrapper" style="--body-bg: image-set(
+    url('/services/hero-2-medium.jpg') 1x,
+    url('/services/hero-2-large.jpg') 2x
+    );"> 
     <nav>
         <div class="nav-bar">
             <div class="nav-header">
@@ -31,22 +34,16 @@
                 <li><a href="/">HOME</a></li>  
                 <li><a href="/templates/services.html">SERVICES</a></li> 
                 <li><a href="/templates/why-apex.html">WHY APEX</a></li> 
-                <li><a href="/templates/'get-in-touch.html">GET IN TOUCH</a></li> 
+                <li><a href="/templates/get-in-touch.html">GET IN TOUCH</a></li> 
             </ul>
         </div>
     </nav>
     <main>
-        <!-- HERO (Using shared utilities) -->
+        <!-- HERO (Using shared utilities) (Mobile) -->
         <section class="section ut-hero-img" style="--hero-bg: image-set(
             url('/services/hero-2-small.jpg') 1x,
             url('/services/hero-2-medium.jpg') 2x
-            );
-            @media (min-width: 900px) {
-                --hero-bg: image-set(
-                    url('/services/hero-2-medium.jpg') 1x,
-                    url('/services/hero-2-large.jpg') 2x
-                );
-            }">
+            );">
             <div> <!--Mobile-->
                 <div class="hero_section__text">
                     <h1 class="section__title anim-fade-up anim-stagger-3">Focused On The Dynamic Growth of Your Organisation</h1>

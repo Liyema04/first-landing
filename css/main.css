@@ -69,6 +69,7 @@ nav {
   width: 100%;
   background-color: var(--white);
   z-index: 9;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .nav-bar {
@@ -127,6 +128,7 @@ nav {
 
 .nav-links.open {
   transform: translateY(0);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .nav-links a {
@@ -143,6 +145,12 @@ nav {
   border-bottom: 2px solid var(--primary-light);
   color: var(--primary-light);
   transition: var(--tran-03);
+}
+
+/* Sticky  */
+.sticky {
+  position: sticky;
+  top: 0;
 }
 
 /* Main Content  */
@@ -1638,8 +1646,39 @@ form button .rs {
     position: static; /* if (fixed) Add blur or opacity decrease on-scroll. */
     background: none !important;
     padding-top: 1rem;
+    box-shadow: none;
   }
 
+  /* Sticky */
+  .sticky {
+    position: absolute;
+    top: 0;
+  }
+
+  /* Scroll-down - state: */
+
+  /* full-width nav-bar inherits from .nav-bar */
+  nav.scroll-d-nav__bar { 
+    position: sticky;
+    top: 0;
+    width: 100%;
+    margin-inline: auto;
+    background: var(--gradient-nav); /* rgba(229, 253, 254, 0.315) */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding:  1.5rem 1.5rem;
+    transition: var(--tran-04);
+  }
+
+  /* Scroll-up - state */
+  nav .nav-bar.hide {
+    display: none;
+  }
+
+  /* Original Navigation Bar */
   .nav-bar {
     width: 90%;
     margin-inline: auto;
@@ -1724,6 +1763,10 @@ form button .rs {
 
   .nav-links li {
     list-style: none;
+  }
+
+  .nav-links.open {
+    box-shadow: none;
   }
 
   .nav-links a {

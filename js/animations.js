@@ -1,6 +1,6 @@
 const menuBtn = document.getElementById("menu-btn");
 const navLinks = document.getElementById("nav-links");
-const menuBtnIcon = document.querySelector("i"); /*not safe*/
+const menuBtnIcon = menuBtn.querySelector("i"); /*safe*/
 
 
 menuBtn.addEventListener("click", (e) => {
@@ -583,6 +583,7 @@ const solutionsOverviewConfig = {
 document.addEventListener('DOMContentLoaded', () => {
     initOverviewTimeline(serviceOverviewConfig);
     initOverviewTimeline(solutionsOverviewConfig);
+    initDesktopStickyNav();
 });
 
 function setupAnimations() {
@@ -746,3 +747,58 @@ if (localHeadline && headlineItems.length > 0) {
     updateProgress(); // Initiate call
 }
 
+// Desktop Sticky Navbar (Scroll-Direction Aware)
+function initDesktopStickyNav() {
+    const stickyHost =  document.querySelector('.site-header') || document.querySelector('nav');
+    const navBar = document.querySelector('.nav-bar');
+    const menuIcon = document.getElementById('menu-btn')?.querySelector('i');
+    if (!stickyHost || !navBar) return; // Bails if mark-up isn't found
+
+    const DESKTOP = window.matchMedia('(min-width: 769px)');
+    const TOP_THRESHOLD = 80; // pixels below this wil restore pill nav
+    const DELTA = 5; // ignores the tiny scroll jitter
+
+    let lastScrollY = window.scrollY;
+    let rafPending = false;
+
+    function handleScroll () {
+        const current = window.scrollY;
+        const direction = current - lastScrollY;
+        
+        if (Math.abs(direction) < DELTA) {
+            rafPending = false;   
+            return;// ignores micro-movements
+        }    
+
+        if (current <= TOP_THRESHOLD) {
+            // Back at top? Then restore original pill nav
+            stickyHost.classList.remove('apex-nav--pinned', 'apex-nav--hidden');
+        } else if (direction > 0) {
+            // Scrolling down? Pin it, then hide it
+            stickyHost.classList.add('apex-nav--pinned', 'apex-nav--hidden');  
+        } else {
+            // Scrolling up? Keep it pinned and reveal
+            stickyHost.classList.add('apex-nav--pinned');
+            stickyHost.classList.remove('apex-nav--hidden');
+        }
+
+        lastScrollY = current;
+        rafPending = false;
+    }
+
+    function onScroll() {
+        if (!DESKTOP.matches || rafPending) return; // desktop + throttle
+        rafPending = true;
+        requestAnimationFrame(handleScroll);
+    }
+
+    function onResize() {
+        if (!DESKTOP.matches) {
+            // Perhaps crosses into mobiel -- clear any stuck desktop classes
+            stickyHost.classList.remove('apex-nav--pinned', 'apex-nav--hidden');
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+}

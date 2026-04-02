@@ -15,29 +15,31 @@
 <body class="ut-body-wrapper" style="--body-bg: image-set(
     url('/services/hero-2-medium.jpg') 1x,
     url('/services/hero-2-large.jpg') 2x
-    );"> 
-    <nav class="sticky">
-        <div class="nav-bar">
-            <div class="nav-header">
-                <div class="nav-logo">
-                    <span class="cont-1">
-                        <img class="apex-logo" src="/assets/no-bg-apex-2-logo.png" alt="Apex logo">
-                        <a href="#">Apex | <span>IT Support</span></a>
-                    </span>
+    );">
+    <header class="site-header sticky"> 
+        <nav>
+            <div class="nav-bar">
+                <div class="nav-header">
+                    <div class="nav-logo">
+                        <span class="cont-1">
+                            <img class="apex-logo" src="/assets/no-bg-apex-2-logo.png" alt="Apex logo">
+                            <a href="#">Apex | <span>IT Support</span></a>
+                        </span>
+                    </div>
+                    <div class="nav-menu-btn" id="menu-btn">
+                        <i class="ri-menu-line"></i>
+                    </div>
                 </div>
-                <div class="nav-menu-btn" id="menu-btn">
-                    <i class="ri-menu-line"></i>
-                </div>
+                <!-- Once templates complete, change href's -->
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="/">HOME</a></li>  
+                    <li><a href="/templates/services.html">SERVICES</a></li> 
+                    <li><a href="/templates/why-apex.html">WHY APEX</a></li> 
+                    <li><a href="/templates/get-in-touch.html">GET IN TOUCH</a></li> 
+                </ul>
             </div>
-            <!-- Once templates complete, change href's -->
-            <ul class="nav-links" id="nav-links">
-                <li><a href="/">HOME</a></li>  
-                <li><a href="/templates/services.html">SERVICES</a></li> 
-                <li><a href="/templates/why-apex.html">WHY APEX</a></li> 
-                <li><a href="/templates/get-in-touch.html">GET IN TOUCH</a></li> 
-            </ul>
-        </div>
-    </nav>
+        </nav>
+    </header>    
     <main>
         <!-- HERO (Using shared utilities) (Mobile) -->
         <section class="section ut-hero-img" style="--hero-bg: image-set(

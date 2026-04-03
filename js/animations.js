@@ -758,6 +758,11 @@ function initDesktopStickyNav() {
     const TOP_THRESHOLD = 80; // pixels below this wil restore pill nav
     const DELTA = 5; // ignores the tiny scroll jitter
 
+    // Always start clean on non-desktop to avoid stale sticky classes.
+    if (!DESKTOP.matches) {
+        stickyHost.classList.remove('apex-nav--pinned', 'apex-nav--hidden');
+    }
+
     let lastScrollY = window.scrollY;
     let rafPending = false;
 

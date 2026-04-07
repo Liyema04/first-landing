@@ -160,6 +160,29 @@ nav {
 .site-header {
   width: 100%;
   z-index: 20;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+/* Mobile Nav closed (Scroll-up state) [Visible] */
+.site-header.mobile-nav__active {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* Mobile Nav closed (Scroll-down tate) [Hidden] */
+.site-header.mobile-nav__hidden {
+  transform: translateY(-100%);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header .nav-bar {
+    transition: none;
+  }
 }
 
 /* Main Content  */
@@ -1764,7 +1787,7 @@ form button .rs {
     top: 0;
   }
 
-  /* Scroll-down - state: */
+  /* (Visible) Scroll-up - state: */
 
   /* Full-width nav-bar inherits from .nav-bar */
   /* Pinned: triggered when user scrolls past the pill zone. 
@@ -1803,7 +1826,7 @@ form button .rs {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   }
 
-  /* Scroll-up - state */
+  /* (Hidden) Scroll-down - state */
 
   /* Hidden: added on top of pinned while actively scrolling down.
      Slides the bar up out of wiew with a fade. 

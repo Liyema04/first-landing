@@ -580,10 +580,12 @@ const solutionsOverviewConfig = {
 
 };
 
+// `init` event listeners
 document.addEventListener('DOMContentLoaded', () => {
     initOverviewTimeline(serviceOverviewConfig);
     initOverviewTimeline(solutionsOverviewConfig);
     initDesktopStickyNav();
+    initMobileDropdownNav();
 });
 
 function setupAnimations() {
@@ -766,7 +768,7 @@ function initDesktopStickyNav() {
     let lastScrollY = window.scrollY;
     let rafPending = false;
 
-    function handleScroll () {
+    function handleScroll() {
         const current = window.scrollY;
         const direction = current - lastScrollY;
         
@@ -799,11 +801,79 @@ function initDesktopStickyNav() {
 
     function onResize() {
         if (!DESKTOP.matches) {
-            // Perhaps crosses into mobiel -- clear any stuck desktop classes
+            // Perhaps crosses into mobile -- clear any stuck desktop classes
             stickyHost.classList.remove('apex-nav--pinned', 'apex-nav--hidden');
         }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
+}
+
+// Moblie Sticky Drop-down Nav (Scroll-direction Aware): 
+function initMobileDropdownNav() {
+    const mobileStickyHost = document.querySelector('.site-header') || document.querySelector('nav');
+    const mobileNav = document.querySelector('.nav-bar');
+    const dropdownNavOpen = navLinks.classList.contains('open');
+    if (!mobileStickyHost || !mobileNav) return;
+    
+    const MOBILE = window.matchMedia('(max-width: 768px)');
+    const TOP_THRESHOLD = 60;
+    const DELTA = 5;
+
+    if (!MOBILE.matches) {
+        mobileStickyHost.classList.remove('mobile-nav__active', 'mobile-nav__hidden');
+    }
+
+    let lastScrollY = window.scrollY;
+    let rafPending = false;
+
+    function handleScroll() {
+        const current = window.scrollY;
+        const direction = current - lastScrollY;
+
+        // Ignores tiny jitter
+        if (Math.abs(direction) < DELTA) {
+            rafPending = false;
+            return;
+        }
+
+        if (current <= TOP_THRESHOLD) {
+            // Back at top/At the top? Then nav returns to normal state
+            mobileStickyHost.classList.remove('mobile-nav__active', 'mobile-nav__hidden');
+        } else if (direction > 0 && dropdownNavOpen ) {
+            mobileStickyHost.classList.remove('mobile-nav__hidden');
+            lastScrollY = current;  
+        } else if (direction > 0) {
+            // Scrolling down? Active but hidden
+            mobileStickyHost.classList.add('mobile-nav__active', 'mobile-nav__hidden');
+            navLinks.classList.remove('open'); // closes dropdown
+            menuBtnIcon.setAttribute("class", dropdownNavOpen ? "ri-close-line" : "ri-menu-line"); // restore previous icon
+
+        } else {
+            // Scrolling up? Keep active and reveal
+            navLinks.classList.remove('open'); // closes dropdown
+            menuBtnIcon.setAttribute("class", dropdownNavOpen ? "ri-close-line" : "ri-menu-line"); // restores previous icon
+            mobileStickyHost.classList.add('mobile-nav__active');
+            mobileStickyHost.classList.remove('mobile-nav__hidden');
+        }
+
+        lastScrollY = current;
+        rafPending = false;
+    }
+
+    function onResize() {
+        if (!MOBILE.matches) {
+            mobileStickyHost.classList.remove('mobile-nav__active', 'mobile-nav__hidden');
+        }
+    }
+    
+    function onScroll() {
+        if (!MOBILE.matches || rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(handleScroll);
+    }
+
+    window.addEventListener('resize', onResize);
+    window.addEventListener('scroll', onScroll, { passive: true });
 }

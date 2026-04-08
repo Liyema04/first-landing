@@ -1,14 +1,43 @@
+// Mobile NavBar: 
 const menuBtn = document.getElementById("menu-btn");
 const navLinks = document.getElementById("nav-links");
 const menuBtnIcon = menuBtn.querySelector("i"); /*safe*/
 
+// Touch behaviours - Mobile Drop-down Nav
+function syncMobileNavEffects(isOpen) { 
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const shouldOpen = isMobile && isOpen;
+
+    document.body.classList.toggle('mobile-nav__open', shouldOpen);
+
+    let backdrop = document.querySelector('.mobile-nav__backdrop');
+    if (!backdrop && shouldOpen) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'mobile-nav__backdrop';
+        document.body.appendChild(backdrop);
+    }
+
+    if (backdrop) {
+        backdrop.classList.toggle('mobile-nav__backdrop-open', shouldOpen);
+    }
+}
+
+function closeMobileDropdown() {
+    navLinks.classList.remove("open");
+    menuBtnIcon.setAttribute("class", "ri-menu-line");
+    syncMobileNavEffects(false);
+}
+
 
 menuBtn.addEventListener("click", (e) => {
-    navLinks.classList.toggle("open")
+    navLinks.classList.toggle("open");
 
-    // Checks for 'open' class in nav-links 
+    // Checks for 'open' class in nav-links | Compute initial state first
     const isOpen = navLinks.classList.contains("open");
-    
+
+    // Then sync backdrop + scroll back
+    syncMobileNavEffects(isOpen);
+
     // Changes menu-btn icon in open state
     menuBtnIcon.setAttribute("class", isOpen ? "ri-close-line" : "ri-menu-line");
 })
@@ -16,10 +45,7 @@ menuBtn.addEventListener("click", (e) => {
 // When clicking on a nav-link: 
 navLinks.addEventListener("click", (e) => {
     // Hides other nav-links & reverts to (close state)
-    navLinks.classList.remove("open");
-
-    // Changes menu-btn icon in close state
-    menuBtnIcon.setAttribute("class", "ri-menu-line"); 
+    closeMobileDropdown();
 })
 
 // Section selectors (~ Containers ~) :
@@ -586,6 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initOverviewTimeline(solutionsOverviewConfig);
     initDesktopStickyNav();
     initMobileDropdownNav();
+    initOutsideTapClose();
 });
 
 function setupAnimations() {
@@ -808,13 +835,12 @@ function initDesktopStickyNav() {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
-}
+} 
 
 // Moblie Sticky Drop-down Nav (Scroll-direction Aware): 
 function initMobileDropdownNav() {
     const mobileStickyHost = document.querySelector('.site-header') || document.querySelector('nav');
     const mobileNav = document.querySelector('.nav-bar');
-    const dropdownNavOpen = navLinks.classList.contains('open');
     if (!mobileStickyHost || !mobileNav) return;
     
     const MOBILE = window.matchMedia('(max-width: 768px)');
@@ -823,6 +849,7 @@ function initMobileDropdownNav() {
 
     if (!MOBILE.matches) {
         mobileStickyHost.classList.remove('mobile-nav__active', 'mobile-nav__hidden');
+        syncMobileNavEffects(false);
     }
 
     let lastScrollY = window.scrollY;
@@ -831,6 +858,7 @@ function initMobileDropdownNav() {
     function handleScroll() {
         const current = window.scrollY;
         const direction = current - lastScrollY;
+        const isDropdownOpen = navLinks.classList.contains('open');
 
         // Ignores tiny jitter
         if (Math.abs(direction) < DELTA) {
@@ -841,19 +869,16 @@ function initMobileDropdownNav() {
         if (current <= TOP_THRESHOLD) {
             // Back at top/At the top? Then nav returns to normal state
             mobileStickyHost.classList.remove('mobile-nav__active', 'mobile-nav__hidden');
-        } else if (direction > 0 && dropdownNavOpen ) {
+        } else if (direction > 0 && isDropdownOpen) {
             mobileStickyHost.classList.remove('mobile-nav__hidden');
             lastScrollY = current;  
         } else if (direction > 0) {
             // Scrolling down? Active but hidden
             mobileStickyHost.classList.add('mobile-nav__active', 'mobile-nav__hidden');
-            navLinks.classList.remove('open'); // closes dropdown
-            menuBtnIcon.setAttribute("class", dropdownNavOpen ? "ri-close-line" : "ri-menu-line"); // restore previous icon
-
+            closeMobileDropdown(); // closes dropdown and syncs effects
         } else {
             // Scrolling up? Keep active and reveal
-            navLinks.classList.remove('open'); // closes dropdown
-            menuBtnIcon.setAttribute("class", dropdownNavOpen ? "ri-close-line" : "ri-menu-line"); // restores previous icon
+            closeMobileDropdown(); // closes dropdown and syncs effects
             mobileStickyHost.classList.add('mobile-nav__active');
             mobileStickyHost.classList.remove('mobile-nav__hidden');
         }
@@ -865,6 +890,7 @@ function initMobileDropdownNav() {
     function onResize() {
         if (!MOBILE.matches) {
             mobileStickyHost.classList.remove('mobile-nav__active', 'mobile-nav__hidden');
+            closeMobileDropdown();
         }
     }
     
@@ -876,4 +902,18 @@ function initMobileDropdownNav() {
 
     window.addEventListener('resize', onResize);
     window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function initOutsideTapClose() {
+    document.addEventListener("pointerdown", (e) => {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        const isOpen = navLinks.classList.contains("open");
+        if (!isMobile || !isOpen) return;
+
+        const insideMenu = navLinks.contains(e.target);
+        const onMenuBtn = menuBtn.contains(e.target);
+        if (insideMenu || onMenuBtn) return;
+
+        closeMobileDropdown();
+    });
 }

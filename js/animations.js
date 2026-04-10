@@ -1,14 +1,44 @@
 // Active Nav Links desktop & mobile:
-const activePage = window.location.pathname;
-const activeNavLinks = document.querySelectorAll('.nav-links a').forEach(
-    link => {
-        if(link.href.includes(`${activePage}`)) {
-            link.classList.add('active');
-        } else {
-            console.log(`${activePage}`);
+function normalizePath(rawPath) {
+    // Ignore hash/query for matching
+    let p = String(rawPath).split("#")[0].split("?")[0];
+    //  Root handling
+    if (!p || p === "/") return "/";
+    // Removes tailing slash (except root)
+    p = p.replace(/\/+$/, "");
+    if (!p) return "/"
+    // Map index routes to root
+    if (p === "/index" || p === "/index.html") return "/";
+    // Normalize .html and non-.html to same route
+    if (p.endsWith(".html")) p = p.slice(0, -5);
+
+    return p || "/";
+}
+
+function initActiveNavLinks() {
+    const links = document.querySelectorAll(".nav-links a");
+    if(!links.length) return;
+    
+    const activePage = normalizePath(
+        window.location.pathname + window.location.search + window.location.hash
+    );
+
+    links.forEach((link) => {
+        link.classList.remove("active");
+        link.removeAttribute("aria-current");
+
+        const url = new URL(link.href, window.location.origin);
+        const linkPath = normalizePath(url.pathname + url.search + url.hash); 
+
+        if (linkPath === activePage) {
+            link.classList.add("active");
+            link.setAttribute("aria-current", "page");
+            console.log("Active indicator set on current page: ",`${link}`);
         }
-    }
-);    
+    });
+}
+
+document.addEventListener("DOMContentLoaded", initActiveNavLinks);
 
 // Mobile NavBar: 
 const menuBtn = document.getElementById("menu-btn");

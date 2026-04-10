@@ -1,3 +1,15 @@
+// Active Nav Links desktop & mobile:
+const activePage = window.location.pathname;
+const activeNavLinks = document.querySelectorAll('.nav-links a').forEach(
+    link => {
+        if(link.href.includes(`${activePage}`)) {
+            link.classList.add('active');
+        } else {
+            console.log(`${activePage}`);
+        }
+    }
+);    
+
 // Mobile NavBar: 
 const menuBtn = document.getElementById("menu-btn");
 const navLinks = document.getElementById("nav-links");

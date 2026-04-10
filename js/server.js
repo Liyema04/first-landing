@@ -10,7 +10,7 @@ const server = http.createServer(async(req, res) => {
     try {
         let filePath;
 
-        if (req.url === '/') {
+        if (req.url === '/' || req.url === '/index') {
             filePath = path.join(__dirname, '..', 'index.html'); // Base Template
 
         //  Other templates for main tabs: 

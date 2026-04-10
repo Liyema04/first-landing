@@ -4,6 +4,8 @@
   --primary-color: #1b98fe;
   --primary-light-navy: #4f6f9c;
   --primary-light: #84dbff;
+  --primary-light__0: rgb(132, 219, 255, 0.6);
+
   --apex-brown: #2b1b17;
   --secondary: #e5fdfe;
   --white: #ffffff;
@@ -12,6 +14,7 @@
 
   --apex-text: #fff;
   --apex-dark-text: #707070;
+  --apex-dark-text-2: #818181;
   --apex-light-grey: #f0f0f0;
   --apex-midnight-black: rgb(43, 27, 23);
   --apex-midnight-gradient: linear-gradient(90deg, rgb(43, 27, 23) 0%, rgb(43, 27, 23) 38%,rgba(0, 0, 0, 0) 100%); /* desktop */
@@ -159,7 +162,7 @@ body.mobile-nav__open {
 }
 
 .nav-links a {
-  padding-right: 4px;
+  padding: 4px;
   white-space: nowrap;
   color: var(--apex-dark-text);
   transition: var(--tran-03);
@@ -167,14 +170,21 @@ body.mobile-nav__open {
 }
 
 .nav-links a:hover {
-  padding-right: 4px;
+  padding: 4px;
   border-radius: none;
+  border-bottom: 2px solid var(--primary-light-navy);
+  color: var(--primary-light-navy);
+  transition: var(--tran-03);
+}
+
+/* Navigations links active indicator */
+.nav-links a.active {
+  padding: 4px;
+  border-radius: 6px;
   border-bottom: 2px solid var(--primary-light);
   color: var(--primary-light);
   transition: var(--tran-03);
 }
-
-/* Navigations links active:state */
 
 /* Sticky  */
 .sticky {
@@ -1978,10 +1988,30 @@ form button .rs {
   }
 
   .nav-links a:hover {
-    border-bottom: none;
+    border-bottom: 3px solid var(--primary-color);
+    border-radius: 6px;
     background: var(--secondary);
     color: var(--primary-color);
-    transition: var(--tran-02);
+    transition: var(--tran-03);
+    text-shadow: none;
+  }
+
+  /* Navigations links active indicator */
+  .nav-links a.active {
+    border-radius: 6px;
+    background: var(--primary-light__0);
+    border-bottom: 3px solid var(--foggy-white);
+    color: var(--white);
+    transition: var(--tran-03);
+    text-shadow: none;
+  }
+
+  .nav-links a.active:hover {
+    border-bottom: 3px solid var(--primary-color);
+    border-radius: 6px;
+    background: var(--secondary);
+    color: var(--primary-color);
+    transition: var(--tran-03);
     text-shadow: none;
   }
 

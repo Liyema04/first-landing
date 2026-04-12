@@ -731,7 +731,7 @@ if (localHeadline && headlineItems.length > 0) {
     let ticking = false;
 
     function updateProgress() {
-        const section = document.getElementById('localCont');
+        const section = document.getElementById('localCont') || document.getElementById('localFeatures');
         if (!section) return;
         
         const sectionTop = section.offsetTop;

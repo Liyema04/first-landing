@@ -52,6 +52,9 @@ const server = http.createServer(async(req, res) => {
         } else if (req.url.startsWith('/services/')) {
             filePath = path.join(__dirname, '..', 'public', 'images', req.url);
 
+        } else if (req.url.startsWith('/about/')) {
+            filePath = path.join(__dirname, '..', 'public', 'images', req.url);
+
         } else if (req.url.startsWith('/fonts/')) {
             filePath = path.join(__dirname, '..', 'public', req.url);
                 

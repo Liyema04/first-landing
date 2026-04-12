@@ -4,7 +4,7 @@
   --primary-color: #1b98fe;
   --primary-light-navy: #4f6f9c;
   --primary-light: #84dbff;
-  --primary-light__0: rgb(132, 219, 255, 0.6);
+  --primary-light__0: rgba(132, 219, 255, 0.6);
 
   --apex-brown: #2b1b17;
   --secondary: #e5fdfe;
@@ -23,7 +23,8 @@
   --apex-midnight-gradient-2: linear-gradient(90deg, rgb(238, 112, 51) 0%,rgba(251, 156, 55, 0.4) 38%, rgba(0, 0, 0, 0) 100%); /* desktop */
   --apex-midnight-gradient-3: linear-gradient(180deg, rgba(238, 112, 51) 0%, rgba(43, 27, 23, 0.85) 38%, rgb(43, 27, 23) 100%); /* mobile */
   --apex-midnight-gradient-4: linear-gradient(180deg, rgba(251, 156, 55, 0.4) 0%, rgb(132, 219, 255) 38%,rgb(43, 27, 23) 100%); /* mobile */
-
+  --section--grey_0 : linear-gradient(90deg, rgb(168, 184, 208) 0%,rgb(224, 224, 224) 38%, rgba(0, 0, 0, 0) 100%); /* desktop */
+  --section--grey_1 : linear-gradient(180deg, rgb(168, 184, 208) 0%,rgb(224, 224, 224) 38%, rgba(0, 0, 0, 0) 100%); /* mobile or full-cover -> rgb(255, 255, 255) */
 
 
   /* APex gradients */
@@ -874,6 +875,21 @@ body.mobile-nav__open {
   overflow: hidden;
 }
 
+#localFeatures .local-images {
+  width: 100%;
+  min-height: 300px;
+  transform: translateX(0);
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
 /* Animated border effect for mobile using pseudo-element */
 .local-images::after {
   content: '';
@@ -882,6 +898,22 @@ body.mobile-nav__open {
   border-radius: 12px;
   padding: 3px;
   background: linear-gradient(45deg, #070707, #ee7033, #fb9c37, #ee7033, #070707);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradientRotate 8s linear infinite;
+  pointer-events: none;
+}
+
+#localFeatures .local-images::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 3px;
+  background: linear-gradient(45deg, #1b98fe, #84dbff, #338aff, #3cf0c5);
   background-size: 300% 300%;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -900,6 +932,23 @@ body.mobile-nav__open {
   bottom: 3px;
   border-radius: 9px;
   background-image: linear-gradient(to bottom, rgba(238, 113, 51, 0.3), rgba(251, 156, 55, 0.7)), url(/services/emmanuel-ikwuegbu--0-kl1BjvFc-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+#localFeatures .local-images::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border-radius: 9px;
+  background-image: linear-gradient(to bottom,  rgba(27, 152, 254, 0.3), rgba(27, 152, 254, 0.7)), image-set(
+    url(/about/pexels-cookiecutter-small.jpg) 1x,
+    url(/about/pexels-cookiecutter-medium.jpg) 2x
+  );
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -952,8 +1001,28 @@ body.mobile-nav__open {
   box-shadow: 0 0 20px rgba(240, 162, 60, 0.46);
 }
 
+/* For index.html - keep orange OR change to blue */
+.local-cont .progress-line {
+  background: linear-gradient(90deg, rgb(238, 112, 51) 0%, rgb(251, 156, 55) 50%, rgb(241, 239, 228) 100%);
+  box-shadow: 0 0 20px rgba(240, 162, 60, 0.46);
+}
+
+/* For why-apex.html - blue */
+#localFeatures .progress-line {
+  background: linear-gradient(90deg, rgba(229, 253, 254) 0%, rgba(132, 219, 255) 50%, rgba(27, 152, 254) 100%);
+  box-shadow: 0 0 20px rgba(168, 184, 208, 0.46);
+}
+
 /* Headline items default state */
 .local-headline .hl {
+  position: relative;
+  z-index: 1;
+  color: transparent; /* or rgba(255, 255, 255, 0.3) */
+  padding: 0.5rem 1rem;
+  transition: var(--tran-02);
+}
+
+#localFeatures .local-headline .hl {
   position: relative;
   z-index: 1;
   color: transparent; /* or rgba(255, 255, 255, 0.3) */
@@ -965,6 +1034,12 @@ body.mobile-nav__open {
   color: var(--foggy-white);
   transform: scale(1.05);
   text-shadow: 0 0 20px rgba(240, 162, 60, 0.46);
+}
+
+#localFeatures .local-headline .hl.active {
+  color: var(--foggy-white);
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(132, 219, 255, 0.46);
 }
 
 /* Add smooth number transitions */
@@ -981,7 +1056,41 @@ body.mobile-nav__open {
   border-radius: 2px;
 }
 
+.local-cont .local-headline .hl::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(238, 112, 51) 0%, rgb(241, 239, 228) 100%);
+  transition: transform 0.4s ease;
+  border-radius: 2px;
+}
+
+#localFeatures .local-headline .hl::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(229, 253, 254)0%, rgba(132, 219, 255) 100%);
+  transition: transform 0.4s ease;
+  border-radius: 2px;
+}
+
 .local-headline .hl.active::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.local-cont .local-headline .hl.active::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+#localFeatures .local-headline .hl.active::before {
   transform: translateX(-50%) scaleX(1);
 }
 
@@ -1012,6 +1121,14 @@ body.mobile-nav__open {
   transition-property: opacity, transform;
   transition-duration: 200ms;
   transition-timing-function: ease-in;
+}
+
+.local-cont .local-describe p.describe {
+  border-left: 4px solid rgba(251, 156, 55, 0.9);
+}
+
+#localFeatures .local-describe p.describe {
+  border-left: 4px solid rgb(133, 218, 255, 0.9);
 }
 
 /* Class added via JS to trigger the animation */
@@ -1056,15 +1173,23 @@ body.mobile-nav__open {
   transition: opacity 240ms ease, transform 240ms ease;
 }
 
-.hi-item i {
-  font-size: 1.125rem;
+.hi-item i,
+.local-cont .hi-item i {
+  font-size: 1.25rem;
   line-height: 1.6;
   flex-shrink: 0;
   color: #7ff56d;
 }
 
+#localFeatures .hi-item i {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  flex-shrink: 0;
+  color: var(--primary-light);
+}
+
 .hi-text span {
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.6;
   font-weight: 600;
 }
@@ -1118,7 +1243,9 @@ body.mobile-nav__open {
 }
 
 @media (min-width: 768px) {
-  .local-describe p.describe {
+  .local-describe p.describe,
+  .local-cont .local-describe p.describe,
+  #localFeatures .local-describe p.describe {
     max-width: 60ch;
     border-left: 0;
     padding-left: 0;
@@ -2229,6 +2356,16 @@ form button .rs {
     box-shadow: 0 0 20px rgba(240, 162, 60, 0.46);
   }
 
+  .local-cont .local-headline .hl::after {
+    background: linear-gradient(90deg, #ee7033, #fb9c37, #f1efe4);
+    box-shadow: 0 0 20px rgba(240, 162, 60, 0.46);
+  }
+
+  #localFeatures .local-headline .hl::after {
+    background: linear-gradient(90deg, #e5fdfe, #85daff, #1b98fe);
+    box-shadow: 0 0 20px rgba(168, 184, 208, 0.46);
+  }
+
   .local-headline .hl.active::after {
     width: 100%;
   }  
@@ -2282,6 +2419,16 @@ form button .rs {
     background: linear-gradient(var(--angle), #2b1b17, rgb(238, 112, 51)) border-box;
     animation: 8s rotate linear infinite;
   }
+
+  .local-cont .local-images {
+    background: linear-gradient(var(--angle), #2b1b17, rgb(238, 112, 51)) border-box;
+  }
+
+  #localFeatures .local-images {
+      background: linear-gradient(var(--angle), #a8b8d0, #85daff) border-box;
+  }
+
+  
 
   .local-images::after {
     background: none;

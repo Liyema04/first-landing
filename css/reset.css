@@ -244,6 +244,7 @@ hr.line-sep {
 .section--dark { background: var(--apex-midnight-gradient); }
 .section--d-m { background: var(--apex-midnight-gradient-1); }
 .section--d-m-0 { background: var(--apex-midnight-gradient-3); }
+.section--grey { background: var(--section--grey_1); }
 
 .section__text {
   display: flex;
@@ -310,6 +311,11 @@ section.section#needHelpCta {
   margin: 0;
   font-size: var(--section-desc-size);
   font-weight: 500;
+}
+
+/* Local Features - (Why Apex) */
+#localFeatures.section {
+  color: var(--apex-text);
 }
 
 /* Button base + modifiers */
@@ -475,8 +481,7 @@ section.section#needHelpCta {
   .ut-hero-img {
     display: flex;
     background-image: none;
-    height: 100vh;
-    min-height: 60vh;
+    min-height: 600px;
   }
 
   #serviceOverview .section__title {
@@ -486,11 +491,20 @@ section.section#needHelpCta {
   .section--d-m { background: var(--apex-midnight-gradient); }
   .section--d-m-0 { background: var(--apex-midnight-gradient-2); }
   .section--b-m { background: rgba(27, 152, 254, 0.4); }
+  .section--dark { background: var(--apex-midnight-gradient); }
+  .section--grey { background: var(--section--grey_0); }
 
   section.section#needHelpCta {
     min-height: unset;
     min-height: 450px;
     height: 450px; 
+  }
+
+  /* (New) Global Hero height - desktop */
+  section.section#apexHero {
+    min-height: unset;
+    min-height: 500px;
+    height: 600px !important; 
   }
 
   .grid-block-1 {

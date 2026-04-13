@@ -95,6 +95,7 @@ const containers = document.querySelectorAll('.text-anim');
 const centeredHolders = document.querySelectorAll('.centered-holder');
 const serviceContainers = document.querySelectorAll('.service-anim');
 const contactContainers = document.querySelectorAll('.contact-anim');
+const cardContainers = document.querySelectorAll('.card-anim');
 
 // Query selector for global(!= index.html) animation class:
 const item = document.querySelectorAll('.anim-fade-up');
@@ -666,7 +667,8 @@ function setupAnimations() {
     if (window.innerWidth >= 600) {
         // Desktop/Tablet: unobserve mobile cards, observe centred-holder
         serviceContainers.forEach(card => mobileCardsObserver.unobserve(card));
-        contactContainers.forEach(card => mobileCardsObserver. unobserve(card));
+        contactContainers.forEach(card => mobileCardsObserver.unobserve(card));
+        cardContainers.forEach(card => mobileCardsObserver.unobserve(card));
         
         // Observe ALL centered-holders (services & contacts)
         centeredHolders.forEach(holder => {
@@ -682,6 +684,9 @@ function setupAnimations() {
             mobileCardsObserver.observe(card);
         });
         contactContainers.forEach(card => {
+            mobileCardsObserver.observe(card)
+        });
+        cardContainers.forEach(card => {
             mobileCardsObserver.observe(card)
         });
     }

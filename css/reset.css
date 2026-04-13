@@ -245,7 +245,8 @@ hr.line-sep {
 .section--d-m { background: var(--apex-midnight-gradient-1); }
 .section--d-m-0 { background: var(--apex-midnight-gradient-3); }
 .section--grey { background: var(--section--grey_1); }
-.section--apex-gradient { background: var(--section--grey_2);} 
+.section--apex-gradient { background: var(--section--grey_2);}
+.section--fgw-gradient { background: var(--section--fgw); } 
 
 .section__text {
   display: flex;
@@ -330,8 +331,14 @@ section.section#needHelpCta {
   color: var(--primary-light-navy);
 }
 
+
 #apexDeliverables hr.line-sep {
   border: 6px solid var(--primary-light);
+}
+
+#clientTestimonials .section__title,
+#clientTestimonials .section__desc {
+  color: var(--primary-light-navy);
 }
 
 /* Global Cards (Grid) - Mobile */
@@ -382,6 +389,34 @@ section.section#needHelpCta {
   position: relative;
   z-index: 2;
   color: inherit;
+}
+
+.card-item .card-wrapper {
+  position: relative;
+  z-index: 2;
+  color: inherit;
+}
+
+/* Card Icons & text */
+.text-overlay {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.text-overlay .card-icon {
+  align-self: flex-start;
+  margin-bottom: auto;
+  font-size: 2.5rem;
+}
+
+.text-overlay h3 {
+  margin-top: auto;
+  margin-bottom: 0.5rem;
+}
+
+.text-overlay p {
+  margin: 0;
 }
 
 /* Global Cards (Grid) - Animations */
@@ -574,6 +609,8 @@ section.section#needHelpCta {
   .section--grey { background: var(--section--grey_0); }
   .section--blue { background: rgba(27, 152, 254); }
   .section--apex-gradient { background: var(--foggy-white); }
+  .section--fgw-gradient { background: var(--section--fgw); } 
+
 
   section.section#needHelpCta {
     min-height: unset;
@@ -591,6 +628,11 @@ section.section#needHelpCta {
   #apexDeliverables .section__title,
   #apexDeliverables .section__desc {
     text-align: left;
+    color: var(--primary-light-navy);
+  }
+
+  #clientTestimonials .section__title,
+  #clientTestimonials .section__desc {
     color: var(--primary-light-navy);
   }
 

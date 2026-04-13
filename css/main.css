@@ -26,8 +26,10 @@
   --apex-midnight-gradient-4: linear-gradient(180deg, rgba(251, 156, 55, 0.4) 0%, rgb(132, 219, 255) 38%,rgb(43, 27, 23) 100%); /* mobile */
   --section--grey_0: linear-gradient(90deg, rgb(168, 184, 208) 0%,rgb(224, 224, 224) 38%, rgba(0, 0, 0, 0) 100%); /* desktop */
   --section--grey_1: linear-gradient(180deg, rgb(168, 184, 208) 0%,rgb(224, 224, 224) 38%, rgb(255, 255, 255) 100%); /* mobile or full-cover -> rgb(255, 255, 255) */
-  --section--grey_2: linear-gradient(180deg, rgb(241, 239, 228) 0%,rgb(241, 239, 228) 38%, rgb(132, 218, 255, 0) 100%); /*Mobile*/
+  --section--grey_2: linear-gradient(180deg, rgb(241, 239, 228) 0%,rgb(241, 239, 228) 38%, rgb(241, 239, 228) 100%); /*Mobile*/
   --section--grey_3: linear-gradient(90deg, rgba(132, 219, 255, 0.4) 0%, rgb(79, 111, 156, 0.6) 38%, rgb(168, 184, 208) 100%); /*Desktop*/
+  --section--fgw: linear-gradient(180deg, rgb(241, 239, 228) 0%,rgb(168, 184, 208) 38%, rgba(0, 0, 0, 0) 100%); /*Desktop*/
+
 
 
 

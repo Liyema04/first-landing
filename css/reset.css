@@ -432,6 +432,158 @@ section.section#needHelpCta {
   transition: 800ms;
 }
 
+/* Client Testimonials */
+.clients-centered-block {
+  display: flex;
+  /*flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.clients-wrapper-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.client-card {
+  position: relative;
+  min-height: 360px;
+  padding: 2rem;
+  background-color: var(--apex-text);
+  background-size: cover;
+  background-position: center;
+  color: var(--primary-light-navy);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  border: 2px solid rgba(79, 111, 156, 0.250);
+}
+
+.client-card .client-review {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+  min-height: 280px;
+}
+
+.review_text {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+}
+
+.review_text p.review {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+span.quote-1 {
+  padding-bottom: 8px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+span.quote-2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  align-self: flex-end;
+}
+
+.client-card .client-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "avatar credentials"
+    "avatar rating";
+  align-items: center;
+  column-gap: 0.75rem;
+  row-gap: 0;
+  min-height: 65px;
+}
+
+.client-card .client-info .avatar {
+  grid-area: avatar;
+}
+
+.client-card .client-info .credentials {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  grid-area: credentials;
+  min-width: 0;
+}
+
+.client-card .client-info .credentials .name-surname,
+.client-card .client-info .credentials .role-occ {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.role-occ {
+  color: var(--primary-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.client-card .client-info .rating {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  grid-area: rating;
+  min-width: 0;
+  padding: 0.5rem;
+}
+
+.client-card .client-info .rating:empty {
+  display: none;
+}
+
+.client-card .client-info .rating:not(:empty) {
+  margin-top: 0.25rem;
+}
+
+.client-card .client-info .rating .stars {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rating .stars i {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--apex-yellow);
+  overflow: hidden;
+}
+
+.avatar-dp {
+  display: block;
+  min-height: 65px;
+  min-width: 65px;
+  border-radius: 100%;
+  border: 3px solid var(--primary-color);
+}
+
+#client-1 .avatar-dp {
+  background-image: url(/about/jadon-johnson.jpg);
+  background-size: cover;
+  background-position: center top;
+}
+
 /* Button base + modifiers */
 .btn {
   position: relative;
@@ -606,7 +758,7 @@ section.section#needHelpCta {
   .section--d-m-0 { background: var(--apex-midnight-gradient-2); }
   .section--b-m { background: rgba(27, 152, 254, 0.4); }
   .section--dark { background: var(--apex-midnight-gradient); }
-  .section--grey { background: var(--section--grey_0); }
+  .section--grey { background: var(--section--grey_4); }
   .section--blue { background: rgba(27, 152, 254); }
   .section--apex-gradient { background: var(--foggy-white); }
   .section--fgw-gradient { background: var(--section--fgw); } 
@@ -623,6 +775,12 @@ section.section#needHelpCta {
     min-height: unset;
     min-height: 500px;
     height: 600px !important; 
+  }
+
+  section.section#localFeatures {
+    min-height: unset;
+    min-height: 700px;
+    height: 700px !important;
   }
 
   #apexDeliverables .section__title,
@@ -702,6 +860,116 @@ section.section#needHelpCta {
     display: grid;
     margin-inline: auto;
     padding: 2em;
+  }
+
+  /* Client Testmonials (Desktop) */
+  .clients-wrapper-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
+  .client-card .client-review {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0;
+    min-height: 280px;
+  }
+
+  .review_text {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+  }
+
+  .review_text p.review {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  span.quote-1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    align-self: flex-start;
+  }
+
+  span.quote-2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    align-self: flex-end;
+  }
+
+  .client-card .client-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "avatar credentials"
+      "avatar rating";
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0;
+    min-height: 80px;
+  }
+
+  .client-card .client-info .avatar {
+    grid-area: avatar;
+  }
+
+  .client-card .client-info .credentials {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    grid-area: credentials;
+    min-width: 0;
+  }
+
+  .client-card .client-info .credentials .name-surname,
+  .client-card .client-info .credentials .role-occ {
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .role-occ {
+    color: var(--primary-color);
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .client-card .client-info .rating {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    grid-area: rating;
+    min-width: 0;
+    padding: 0.5rem;
+  }
+
+  .client-card .client-info .rating .stars {
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .client-card .client-info .rating:empty {
+    display: none;
+  }
+
+  .client-card .client-info .rating:not(:empty) {
+    margin-top: 0.25rem;
+  }
+
+  .avatar-dp {
+    min-height: 80px;
+    min-width: 80px;
   }
 
   /* CTA buttons - desktop/tablet */

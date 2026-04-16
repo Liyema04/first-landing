@@ -442,12 +442,23 @@ section.section#needHelpCta {
 }
 
 .clients-wrapper-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  display: flex;   /* Swiper expects flex track */
+  gap: 0;          /* use Swiper spaceBetween instead */
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.clients-swiper {
   width: 100%;
   max-width: 400px;
   margin: 2rem auto;
+  overflow: hidden;
+}
+
+#clientTestimonials .swiper-button-prev,
+#clientTestimonials .swiper-button-next {
+  display: none;
 }
 
 .client-card {
@@ -580,6 +591,29 @@ span.quote-2 {
 
 #client-1 .avatar-dp {
   background-image: url(/about/jadon-johnson.jpg);
+  background-size: cover;
+  background-position: center top;
+}
+#client-2 .avatar-dp {
+  background-image: url(/about/rodrigo-rodrigues.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+#client-3 .avatar-dp {
+  background-image: url(/about/linkedin-sales.jpg);
+  background-size: cover;
+  background-position: center top;
+}
+
+#client-4 .avatar-dp {
+  background-image: url(/about/pexels-sarah-2.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+#client-5 .avatar-dp {
+  background-image: url(/about/pexels-theo-aka-sipho.jpg);
   background-size: cover;
   background-position: center top;
 }
@@ -864,12 +898,66 @@ span.quote-2 {
 
   /* Client Testmonials (Desktop) */
   .clients-wrapper-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    display: flex;   /* Swiper expects flex track */
+    gap: 0;          /* use Swiper spaceBetween instead */
     width: 100%;
-    max-width: 700px;
+    max-width: none;
+    margin: 0;
+  }
+
+  #clientTestimonials {
+    --ts-slide-w: 700px; /* Same as .clients-swiper max-width */
+    --ts-nav-size: 60px;
+    --ts-nav-gap: 42px; /* distance from card edge */
+  }
+
+  #clientTestimonials .clients-centered-block {
+    position: relative;
+    width: 100%;
+    max-width: calc(var(--ts-slide-w) + (2 * (var(--ts-nav-size) + var(--ts-nav-gap))));
     margin: 2rem auto;
+    padding: 0;
+  }
+
+  #clientTestimonials .clients-swiper {
+    max-width: var(--ts-slide-w);
+    margin: 0 auto;
+  }
+
+  #clientTestimonials .swiper-button-prev,
+  #clientTestimonials .swiper-button-next {
+    display: flex;
+    padding: 10px;
+    transform: translateY(-50%);
+    width: var(--ts-nav-size);
+    height: var(--ts-nav-size);
+    color: var(--primary-light-navy);
+    z-index: 5;
+  }
+
+  #clientTestimonials .swiper-button-prev:hover,
+  #clientTestimonials .swiper-button-next:hover {
+    color: var(--primary-light-navy);
+    transition: var(--tran-02);
+  }
+
+  #clientTestimonials .swiper-button-prev::after,
+  #clientTestimonials .swiper-button-next::after {
+    font-size: 1.8rem;                 /* bigger arrow */
+    font-weight: 900;                  /* may have limited effect */
+    -webkit-text-stroke: 2px currentColor; /* makes it visibly bolder */
+    text-shadow: 0 0 0 currentColor;   /* slight extra thickness */
+  }
+
+  #clientTestimonials .swiper-pagination-bullet {
+    height: 12px;
+    width: 12px;
+    opacity: 0.5;
+    background: var(--primary-light-navy);
+  }
+
+  #clientTestimonials .swiper-pagination-bullet-active {
+    opacity: 1;
   }
 
   .client-card .client-review {

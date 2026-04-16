@@ -964,3 +964,22 @@ function initOutsideTapClose() {
         closeMobileDropdown();
     });
 }
+
+// SwiperJs initializer - Testimonials card slider
+new Swiper('.clients-swiper', {
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 24,
+    autoHeight: true,
+    grabCussor: true,
+    pagination: {
+        el: '.clients-swiper .swiper-pagination',
+        clickable: true,
+        dynamicBullets: true,
+    },
+    // Navigation arrows (only on Desktop)
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',      
+    },
+});

@@ -9,6 +9,10 @@
   --section-desc-size: clamp(1rem, 1.5vw, 1.25rem);
 }
 
+body#apexMobileBg {
+  background: var(--apex-text);
+}
+
 /* Layout helpers */
 .u-center {
   display: flex;
@@ -246,7 +250,8 @@ hr.line-sep {
 .section--d-m-0 { background: var(--apex-midnight-gradient-3); }
 .section--grey { background: var(--section--grey_1); }
 .section--apex-gradient { background: var(--section--grey_2);}
-.section--fgw-gradient { background: var(--section--fgw); } 
+.section--fgw-gradient { background: var(--section--fgw_0); }
+.section--fgw-gradient-0 { background: var(--section--fgw_1); } 
 
 .section__text {
   display: flex;
@@ -303,7 +308,18 @@ hr.line-sep {
   color: var(--apex-text); 
 }
 
+#readyToElevate .section__title {
+  text-align: center;
+  color: var(--apex-text);
+}
+
 section.section#needHelpCta {
+  min-height: unset;
+  min-height: 450px;
+  height: 450px; 
+}
+
+section.section#readyToElevate {
   min-height: unset;
   min-height: 450px;
   height: 450px; 
@@ -355,7 +371,7 @@ section.section#needHelpCta {
   position: relative;
   min-height: 280px;
   padding: 2rem;
-  background-color: #84dbff;
+  background-color: var(--primary-light-navy);
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -371,7 +387,7 @@ section.section#needHelpCta {
 .card-item:hover {
   transform: translateY(-5px);
   transition: transform 0.35s ease, opacity 0.35s ease;
-  border: 4px solid rgba(132, 219, 255, 0.8);
+  border: 4px solid var(--primary-light);
 }
 
 .card-item::before {
@@ -381,7 +397,7 @@ section.section#needHelpCta {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
+  background: linear-gradient(to bottom, rgba(132, 219, 255,0.1), rgba(132, 219, 255,0.6));
   z-index: 1;
 }
 
@@ -768,6 +784,7 @@ span.quote-2 {
 
 /* Desktop Adjustments */
 @media (width > 768px) {
+  body#apexMobileBg,
   body.ut-body-wrapper {
     /* same properties as .hero-wrapper (desktop-only) */
     background-image: linear-gradient(rgba(2, 0, 36, 0.5), rgba(2, 0, 36, 0.5)), var(--body-bg);
@@ -788,6 +805,10 @@ span.quote-2 {
     color: var(--apex-text);
   }
 
+  #readyToElevate .section__title {
+    color: var(--apex-text);
+  }
+
   .section--d-m { background: var(--apex-midnight-gradient); }
   .section--d-m-0 { background: var(--apex-midnight-gradient-2); }
   .section--b-m { background: rgba(27, 152, 254, 0.4); }
@@ -795,13 +816,20 @@ span.quote-2 {
   .section--grey { background: var(--section--grey_4); }
   .section--blue { background: rgba(27, 152, 254); }
   .section--apex-gradient { background: var(--foggy-white); }
-  .section--fgw-gradient { background: var(--section--fgw); } 
+  .section--fgw-gradient { background: var(--section--fgw); }
+  .section--fgw-gradient-0 { background: none; }  
 
 
   section.section#needHelpCta {
     min-height: unset;
     min-height: 450px;
     height: 450px; 
+  }
+
+  section.section#readyToElevate {
+    min-height: unset;
+    min-height: 450px;
+    height: 450px;
   }
 
   /* (New) Global Hero height - desktop */

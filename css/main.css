@@ -1786,7 +1786,7 @@ form button .rs {
 }
 
 /* Tablet */
-@media (min-width: 481px) and (max-width: 768) {
+@media (min-width: 481px) and (max-width: 768px) {
   /* Inherit mobile styles by default */
 
   /* Tablet specific overrides */

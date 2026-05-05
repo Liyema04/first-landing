@@ -43,7 +43,7 @@
   --gradient-nav: linear-gradient(90deg, rgba(229, 253, 254)  0%,rgba(132, 219, 255) 38%, rgba(27, 152, 254) 100% ); /* navbar */
   --gradient-nav-light: linear-gradient(90deg, rgba(229, 253, 254, 0.8)  0%,rgba(132, 219, 255, 0.8) 38%, rgba(27, 152, 254, 0.8) 100% ); /* navbar */
   --graidient-nav-dark: linear-gradient(90deg, rgb(79, 111, 156) 0%,rgba(132, 219, 255) 38%, rgba(27, 152, 254) 100%);
-  --apex-footer-light: linear-gradient(90deg, rgba(27, 152, 254, 0.4) 0%, rgba(132, 219, 255, 0.8) 38%, rgba(132, 219, 255, 0.8) 100%); /* footer gradient mobile */
+  --apex-footer-light: linear-gradient(90deg, rgba(27, 152, 254, 0.8) 0%, rgba(132, 219, 255) 38%, rgba(132, 219, 255) 100%); /* footer gradient mobile */
   --gradient-btn: linear-gradient(45deg,rgba(27, 152, 254, 1) 0%, rgba(132, 219, 255, 1) 38%, rgba(51, 138, 255, 1) 70%, rgba(60, 240, 197, 0.46) 100%);
   /*Transitions*/
   --tran-01: all 0.1s ease;
@@ -1681,7 +1681,7 @@ form button .rs {
 }
 
 ::placeholder {
-  color: #ccc;
+  color: #fff;
   font-family: "Montserrat", sans-serif;
   opacity: 1;
 }
